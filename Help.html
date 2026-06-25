@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en"><head><base href="/"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Eat It help center give support to our customer it give answer to there common queries ">
+    <title>help</title>
+    <!-- products.html -->
+
+    
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/help.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <script src="js.scipt/help.js"defer></script>
+    </head>
+        <style>
+          .topnav {
+    background:  #1e8449;
+    padding: 0 5%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-soft);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    
+}
+          header{
+    color: #fafafa;
+    font-size: 48px;
+    font-weight: 400;
+    background: #1e8449;
+    font-family:Arial, Helvetica, sans-serif;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    
+    }
+        @media (max-width: 768px) {
+    .topnav {
+        display: none;
+        padding: 0px;
+        visibility: none;
+    }
+  }
+    </style>
+
+    <body>
+        <div class="topnav">
+        <div id="nav-links">
+        <a  href="/">Home</a>
+        <a  href="/product/">Product</a>
+        <a href="/store/">Store</a>
+        <a href="/cart/">Cart</a>
+        <a  href="/purchase/">Orders</a>
+        <li><a href="/orders/">Order History</a></li>
+        
+        <a class="active" herf="/help/">Help</a>
+          
+    </div>
+        <div class="search-wrapper" id="searchWrapper">
+        <i class="fa-solid fa-search" id="search-trigger"></i>
+        <input type="search" id="search-input" placeholder="Search eco-products...">
+    </div>   
+    <div style="float: right;color: white;border-radius: 50px;border-color: white;border-width: 3px;box-sizing: border-box;"><li><a href="/profile/"><i class="fa-solid fa-user" style="color: #fff;"></i></a></li></div>   
+    </div>
+        <div class="side-nav-overlay" id="navOverlay"></div>
+  <nav class="side-nav" id="sideNav">
+    <div class="side-nav-header">
+      <img src="image/logo.png" alt="EAT IT" style="height:32px;"><span>EAT IT</span>
+      <button class="side-nav-close" id="navClose">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="side-nav-links">
+      <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="/product/"><i class="fa-solid fa-utensils"></i> Product</a>
+      <a href="/store/"><i class="fa-solid fa-store"></i> Store</a>
+      <a href="/cart/"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+      <a href="/purchase/"><i class="fa-solid fa-box"></i> Orders</a>
+      <a href="/orders/"><i class="fa-solid fa-clock-rotate-left"></i> Order History</a>
+          <a href="/profile/"><i class="fa-solid fa-user"></i> Profile</a>
+      <a href="/help/"><i class="fa-solid fa-circle-question"></i> Help</a>
+    </div>
+  </nav>
+
+  <!-- Your existing header -->
+  <header class="site-header">
+    <div class="mobile-header-bar">
+      <button class="hamburger" id="navOpen">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="mobile-icons">
+              <div class="search-wrapper mobile-only-search">
+        <i class="fa-solid fa-search"></i>
+        <input type="search" id="mobile-search-input" placeholder="Search...">
+      </div>
+        <a href="/cart/" class="mobile" aria-label="link to cart"><i class="fa-solid fa-bag-shopping"></i></a>
+        <a class="mobile"><i class="fa-solid fa-toolbox"></i></a>
+        <a class="mobile"><i class="fa-solid fa-tools"></i></a>
+      </div>
+    </div>
+  </header>
+
+    <header>
+        <img src="image/logo.png" class="logo">
+     <h1>Help Center</h1>    
+</header>
+        <section id="Orders" class="help">
+        <div class="help-card">
+            <h3>Orders 📦</h3>
+            <p><a href>Where is my order?</a></p>
+            <p><a href>What is your return policy?</a></p>
+            <p><a href>How can i track my order?</a></p>
+        </div>
+            <div class="help-card">
+            <h3>Refund 💰</h3>
+            <a href>Why I have not received my refund?</a>
+            <p><a href>Which cases I am eliglble for refund?</a></p>
+            <p><a href>How to apply for refund?</a> </track></p>
+        </div>
+            <div class="help-card">
+            <h3>Others 🎈</h3>
+            <p><a href>Where is our office location ?</a></p>
+            <p><a href>How many branch do we have ?</a></p>
+            <p><a href>What is my promo code ?</a></p>
+        </div>   
+    </section>
+    <section id="Orders" class="help">
+                <div class="help-card">
+                <h1>For more help:</h1>
+                <p class="para" >Call us on 📞 : 033-3553-4554</p>   <p class="para"> Email ✉️: eatitutensils@gmail.com</p></div>
+    </section>
+    <p id="noResults" style="display: none;text-align: center;font-size: 24px;">No result found</p>
+    </body>
+      <footer class="main-footer">
+    <p>© 2025 Eat It Edible Utensils Pvt. Ltd. All rights reserved.</p>
+  </footer>
+</html>

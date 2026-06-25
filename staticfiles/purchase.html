@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><base href="/">
+    <meta charset="UTF-8">
+    <title>Checkout | Eat It Edible Utensils</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Secure payment interface for your edible utensil orders.">
+
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/purchase2.css">
+        <script>
+        async function checkAuth() {
+            try {
+                const res = await fetch('http://127.0.0.1:8000/api/auth/profile/',{
+                    credentials: 'include'
+                });
+            
+               if (res.status===401) {
+                window.location.href = '/login/';
+               }
+            } catch(e) {
+                window.location.href = '/login/';
+
+            }
+            
+        }
+        checkAuth();
+    </script>
+        <style>
+          .topnav {
+    background:  #1e8449;
+    padding: 0 5%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-soft);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    
+}
+          header{
+    color: #fafafa;
+    font-size: 48px;
+    font-weight: 400;
+    background: #1e8449;
+    font-family:Arial, Helvetica, sans-serif;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    }
+        @media (max-width: 768px) {
+    .topnav {
+        display: none;
+        padding: 0px;
+        visibility: none;
+    }
+  }
+    </style>
+
+</head>
+<body>
+    <nav class="topnav">
+  <div id="nav-links">
+            <a href="/">Home</a>
+    <a href="/product/">Product</a>
+            <a href="/store/">Store</a>
+    <a href="/cart/">Cart</a>
+            <a class="active" href="/purchase/">Orders</a>
+    <li><a href="/orders/">Order History</a></li>
+ 
+    <a href="/help/">Help</a>
+    
+    </div>
+    <div style="float: right;color: white;border-radius: 50px;border-color: white;border-width: 3px;box-sizing: border-box;"><li><a href="/profile/"><i class="fa-solid fa-user" style="color: #fff;"></i></a></li></div>
+    </nav>
+      <div class="side-nav-overlay" id="navOverlay"></div>
+  <nav class="side-nav" id="sideNav">
+    <div class="side-nav-header">
+      <img src="image/logo.png" alt="EAT IT" style="height:32px;"><span>EAT IT</span>
+      <button class="side-nav-close" id="navClose">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="side-nav-links">
+      <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="/product/"><i class="fa-solid fa-utensils"></i> Product</a>
+      <a href="/store/"><i class="fa-solid fa-store"></i> Store</a>
+      <a href="/cart/"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+      <a href="/purchase/"><i class="fa-solid fa-box"></i> Orders</a>
+      <a href="/orders/"><i class="fa-solid fa-clock-rotate-left"></i> Order History</a>
+          <a href="/profile/"><i class="fa-solid fa-user"></i> Profile</a>
+      <a href="/help/"><i class="fa-solid fa-circle-question"></i> Help</a>
+    </div>
+  </nav>
+  <header class="site-header">
+    <div class="mobile-header-bar">
+      <button class="hamburger" id="navOpen">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="mobile-icons">
+        <a href="/cart/"class="mobile"><i class="fa-solid fa-bag-shopping"></i></a>
+        <a href="/help/"class="mobile"><i class="fa-solid fa-headset"></i></a>
+      </div>
+    </div>
+  </header>
+    <header >
+        <img src="image/logo.png" class="logo">
+        <h1>Order Overview</h1>
+    </header>
+            <div class="container">
+  <div class="payment-card">
+    <h2>Select Payment Method</h2>
+
+    <div class="payment-options">
+      <div class="option active" data-method="upi" id="UPI">UPI</div>
+      <div class="option" data-method="card" id="CARD">Card</div>
+      <div class="option" data-method="cod" id="cash">COD</div>
+    </div>
+
+    <!-- UPI Section -->
+    <div id="upi" class="method active">
+                <p class="method-desc">Choose your preferred UPI app:</p>
+                <div class="upi-tiles">
+                    <div class="tile active" data-upi="gpay">
+                        <i class="fa-brands fa-google-pay brand"></i>
+                    
+      </div>
+                    <div class="tile" data-upi="phonepe">
+                       
+                        <span>PhonePe</span>
+    </div>
+                    <div class="tile" data-upi="amazon">
+                        <i class="fa-brands fa-amazon-pay brand"></i>
+                       
+      </div>
+    </div>
+    </div>
+
+            <!-- Card Section -->
+            <div id="card" class="method">
+                <div class="card-inputs">
+                    <input type="text" placeholder="Card Holder Name" aria-label="Card Holder Name">
+                    <input type="text" placeholder="Card Number" aria-label="Card Number">
+                    <div class="row">
+                        <input type="text" placeholder="MM/YY" aria-label="Expiry Date">
+                        <input type="text" placeholder="CVV" aria-label="CVV">
+    </div>
+  </div>
+</div>
+
+            <!-- COD Section -->
+            <div id="cod" class="method">
+                <div class="cod-info">
+                    <i class="fa-solid fa-truck-fast"></i>
+                    <p>Pay at your doorstep upon delivery.</p>
+</div>
+            </div>
+
+            <!-- Summary & CTA -->
+            <div class="payment-footer">
+                <div class="total-box">
+                    <span class="total-label">Total Amount:</span>
+                    <span id="total" class="total-amount">Rs. 0</span><br>
+                    <span id="delivery" class="delivery">Estimated Deliver time :</span>
+                </div>
+                <button class="pay-btn" id="pay">Pay Rs. 0</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Sticky Bar -->
+    <div class="sticky-bar">
+        <span>How was your experience?</span>
+        <a href="https://forms.gle/34d529H655AZjKF7A" target="_blank" class="feedback-btn">
+            Give Feedback
+        </a>
+    </div>
+<script>
+  // Side Nav Toggle
+const navOpen = document.getElementById('navOpen');
+const navClose = document.getElementById('navClose');
+const navOverlay = document.getElementById('navOverlay');
+
+function openNav() {
+  document.body.classList.add('nav-open');
+}
+
+function closeNav() {
+  document.body.classList.remove('nav-open');
+}
+
+navOpen?.addEventListener('click', openNav);
+navClose?.addEventListener('click', closeNav);
+navOverlay?.addEventListener('click', closeNav);
+
+// Close on ESC key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeNav();
+});
+
+// Highlight active page in side nav
+document.querySelectorAll('.side-nav-links a').forEach(link => {
+  if (link.href === window.location.href) {
+    link.style.background = 'var(--bg, #f8f9fa)';
+    link.style.fontWeight = '600';
+  }
+});
+    function displayFinalTotal() {
+        const prices = {
+            classicspoon: 30, chocolatespoon: 35,
+            classicfork: 30, chocolatefork: 35,
+            classicbowl: 60, chocolatebowl: 70,
+            classicset: 100, chocolateset: 120
+        };
+
+            const total = 
+            (parseInt(localStorage.getItem('classicspoonCount')) || 0) * prices.classicspoon +
+            (parseInt(localStorage.getItem('chocolatespoonCount')) || 0) * prices.chocolatespoon +
+            (parseInt(localStorage.getItem('classicforkCount')) || 0) * prices.classicfork +
+            (parseInt(localStorage.getItem('chocolateforkCount')) || 0) * prices.chocolatefork +
+            (parseInt(localStorage.getItem('classicbowlCount')) || 0) * prices.classicbowl +
+            (parseInt(localStorage.getItem('chocolatebowlCount')) || 0) * prices.chocolatebowl +
+            (parseInt(localStorage.getItem('classicsetCount')) || 0) * prices.classicset +
+            (parseInt(localStorage.getItem('chocolatesetCount')) || 0) * prices.chocolateset;
+
+            document.getElementById("total").innerText = "Rs. " + total;
+            document.getElementById("pay").innerText = "Proceed to Pay: Rs. " + total;
+
+        return total;
+
+
+    }
+
+
+
+    function delivery() {
+        const total = displayFinalTotal();
+        if (total === 0) {
+             document.getElementById("delivery").innerText = "Your Cart is empty!"; 
+            return;
+        }
+        if (total < 500) {
+            document.getElementById("delivery").innerText = "Estimated delivery time : 3-4 days"; 
+            return;
+         }
+        if (total >= 500) {
+            document.getElementById("delivery").innerText = "Just wait i am coming baby!!!";
+            return;
+        }
+
+
+  
+    }
+    window.onload = function() {
+        delivery();
+    
+        document.getElementById("cash").onclick = () => {
+            document.getElementById("pay").innerText = "Place Order";
+    }
+        document.getElementById("UPI").onclick = () => {
+            let total = displayFinalTotal()
+            document.getElementById("pay").innerText = "Proceed to Pay: Rs. " + total;
+    }
+        document.getElementById("CARD").onclick = () => {
+            let total = displayFinalTotal()
+            document.getElementById("pay").innerText = "Proceed to Pay: Rs. " + total;
+    }
+    }
+        // Payment Method Toggling
+    const options = document.querySelectorAll(".option");
+    const methods = document.querySelectorAll(".method");
+        const tiles = document.querySelectorAll(".tile");
+
+    options.forEach(option => {
+        option.addEventListener("click", () => {
+    options.forEach(o => o.classList.remove("active"));
+    methods.forEach(m => m.classList.remove("active"));
+    option.classList.add("active");
+                const methodId = option.getAttribute('data-method');
+                document.getElementById(methodId).classList.add("active");
+});
+        });
+tiles.forEach(tile => {
+  tile.addEventListener("click", () => {
+    tiles.forEach(t => t.classList.remove("active"));
+    tile.classList.add("active");
+                console.log("Selected UPI:", tile.dataset.upi);
+  });
+        });
+        
+        // Final "Pay" Action
+        document.getElementById("pay").onclick = async () => {
+    const total = displayFinalTotal();
+    if (total === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    // Detect which payment method is active
+    let paymentMethod = 'cod';
+    if (document.getElementById("UPI").classList.contains("active")) paymentMethod = 'upi';
+    if (document.getElementById("CARD").classList.contains("active")) paymentMethod = 'card';
+    if (document.getElementById("cash").classList.contains("active")) paymentMethod = 'cod';
+
+    const productKeyToId = {
+        'classicspoonCount': 1,
+        'chocolatespoonCount': 2,
+        'classicforkCount': 3,
+        'chocolateforkCount': 4,
+        'classicbowlCount': 5,
+        'chocolatebowlCount': 6,
+        'classicsetCount': 7,
+        'chocolatesetCount': 8
+    };
+
+    const prices = {
+        classicspoonCount: 30, chocolatespoonCount: 35,
+        classicforkCount: 30, chocolateforkCount: 35,
+        classicbowlCount: 60, chocolatebowlCount: 70,
+        classicsetCount: 100, chocolatesetCount: 120
+    };
+
+    const items = [];
+    Object.keys(productKeyToId).forEach(key => {
+        const qty = parseInt(localStorage.getItem(key)) || 0;
+        if (qty > 0) {
+            items.push({
+                product_id: productKeyToId[key],
+                quantity: qty,
+                price: prices[key] * qty
+            });
+        }
+    });
+
+    try {
+        const response = await fetch('http://127.0.0.1:8000/api/order/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                payment_method: paymentMethod,
+                total_amount: total,
+                items: items
+            })
+        });
+        const data = await response.json();
+        if (data.success) {
+            removeCart();
+            alert(`Thank you for choosing sustainability! Order #${data.order_id} placed successfully! amounting ${data.displayFinalTotal}`);
+            window.location.href = 'index.html';
+        }
+    } catch (error) {
+        alert('Something went wrong. Please try again.');
+    }
+};
+    function removeCart() {
+        parseInt(localStorage.removeItem('cartCount'));
+        parseInt(localStorage.removeItem('classicspoonCount'));
+        parseInt(localStorage.removeItem('chocolatespoonCount'));
+        parseInt(localStorage.removeItem('classicforkCount'));
+        parseInt(localStorage.removeItem('chocolateforkCount'));
+        parseInt(localStorage.removeItem('classicbowlCount'));
+        parseInt(localStorage.removeItem('chocolatebowlCount'));
+        parseInt(localStorage.removeItem('classicsetCount')) ;
+        parseInt(localStorage.removeItem('chocolatesetCount'));
+
+
+    }
+
+    
+</script>
+</body>
+<footer class="main-footer">
+    <p>© 2025 Eat It Edible Utensils Pvt. Ltd. All rights reserved.</p>
+  </footer>
+</html>

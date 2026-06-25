@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><base href="/">
+    <meta charset="UTF-8">
+    <title>Payment | Eat It
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="desciption" content="User frindly payment interface with multiple Payment option and ordre Overview.">
+
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/purchase.css">
+    <script src="js.scipt/tog.js" defer></script>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Thank You for using our website!!🎉</h2>
+        <p>Give us Your feedback:
+            <a href="https://forms.gle/34d529H655AZjKF7A" target="_blank"
+            style="display: inline-block;padding: 14px 28px;background-color: rgb(41, 231, 235);color: white ;text-decoration: none;border-radius: 8px; font-weight: 600;">
+        Click Here</a>
+        </p>
+    </div>
+</body>
+</html>
+<div class="topnav" role="navigation">
+    <div id="nav-links">
+        <a class="active" href="/">Home</a>
+        <a href="/product/">Product</a>
+        <a href="/store/">Store</a>
+        <a href="/cart/">Cart</a>
+        <a href="/purchase/">Orders</a>
+        <a href="/help/">Help</a>
+    </div>      
+    <!-- PREMIUM SEARCH START -->
+    <div class="search-wrapper" id="searchWrapper">
+        <i class="fa-solid fa-search" id="search-trigger"></i>
+        <input type="search" id="search-input" placeholder="Search eco-products...">
+    </div>
+    <!-- PREMIUM SEARCH END -->
+</div>
+<div class="mobile-icons">
+    <!-- Updated for premium search consistency -->
+    <div class="search-wrapper mobile-only-search">
+        <i class="fa-solid fa-search"></i>
+        <input type="search" id="mobile-search-input" placeholder="Search...">
+    </div>
+    <a href="/cart/"><i class="fa-solid fa-bag-shopping"></i></a>
+    <a href="/help/"><i class="fa-solid fa-headset"></i></a>
+</div>
+/* Ensure the topnav handles the search wrapper correctly */
+<style>
+.topnav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* On Desktop: Push search to the right */
+@media (min-width: 769px) {
+    .search-wrapper {
+        margin-left: auto; /* Pushes it away from the links */
+    }
+}
+
+/* On Mobile: Style the search to fit the header bar */
+@media (max-width: 768px) {
+    .mobile-header-bar .search-wrapper {
+        background: rgba(255, 255, 255, 0.1); /* Glassmorphism effect */
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .mobile-header-bar .search-wrapper.active {
+        width: 140px; /* Smaller width for mobile screens */
+    }
+    .mobile-header-bar .search-wrapper i {
+        color: white;
+    }
+}

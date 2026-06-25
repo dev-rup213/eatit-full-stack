@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en"><head><base href="/"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Its descriptive page gives details about our products to the customers">
+    <title>Product_details</title>
+
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/product.css">
+    <script src="js.scipt/search.js" defer></script>
+        <style>
+
+          .topnav {
+    background:  #1e8449;
+    padding: 0 5%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-soft);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    
+}
+          header{
+    color: #fafafa;
+    font-size: 32px;
+    font-weight: 400;
+    background: #1e8449;
+    font-family:Arial, Helvetica, sans-serif;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items:  center;
+    }
+    @media (max-width: 768px) {
+    .topnav {
+        display: none;
+        padding: 0px;
+        visibility: none;
+    }
+  }
+    </style>
+    <!-- products.html -->
+
+<body>
+  
+  <div class="topnav">
+    <div id="nav-links">
+      <a  href="/">Home</a>
+      <a class="active" href="/product/">Product</a>
+      <a href="/store/">Store</a>
+      <a href="/cart/">Cart</a>
+      <a  href="/purchase/">Orders</a>
+      <li><a href="/orders/" class="active">Order History</a></li>
+      
+      <a href="/help/">Help</a>
+
+    </div>
+        <div class="search-wrapper" id="searchWrapper">
+        <i class="fa-solid fa-search" id="search-trigger"></i>
+        <input type="search" id="search-input" placeholder="Search eco-products...">
+    </div>
+          <div style="float: right;color: white;border-radius: 50px;border-color: white;border-width: 3px;box-sizing: border-box;"><li><a href="/profile/"><i class="fa-solid fa-user" style="color: #fff;"></i></a></li></div>      
+      </div>
+          <div class="side-nav-overlay" id="navOverlay"></div>
+  <nav class="side-nav" id="sideNav">
+    <div class="side-nav-header">
+      <img src="image/logo.png" alt="EAT IT" style="height:32px;"><span>EAT iT</span>
+      <button class="side-nav-close" id="navClose">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="side-nav-links">
+      <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="/product/"><i class="fa-solid fa-utensils"></i> Product</a>
+      <a href="/store/"><i class="fa-solid fa-store"></i> Store</a>
+      <a href="/cart/"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+      <a href="/purchase/"><i class="fa-solid fa-box"></i> Orders</a>
+      <a href="/orders/"><i class="fa-solid fa-clock-rotate-left"></i> Order History</a>
+          <a href="/profile/"><i class="fa-solid fa-user"></i> Profile</a>
+      <a href="/help/"><i class="fa-solid fa-circle-question"></i> Help</a>
+    </div>
+  </nav>
+  <header class="site-header banner-content">
+    <div class="mobile-header-bar">
+      <button class="hamburger" id="navOpen">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="mobile-icons">
+              <div class="search-wrapper mobile-only-search pls">
+        <i class="fa-solid fa-search" alt="search icon"></i>
+        <input type="search" id="mobile-search-input" placeholder="Search eco-products...">
+      </div>
+        <a href="/cart/"class="mobile"aria-label="link to cart"><i class="fa-solid fa-bag-shopping" alt="cart link"></i></a>
+        <a href="/help/"class="mobile" aria-label="link to help"><i class="fa-solid fa-headset" alt="help link"></i></a>
+      </div>
+    </div>
+  </header>
+
+ 
+   <header>
+    <img src="image/logo.png" class="logo">
+    <div class="pls">EAT iT Products</div>
+  </header>
+  <div class="product-row Product">
+    <img src="image/Spoon.jpeg" alt="Product1" class="product-img">
+    <div>
+      <h2>Edible Spoon</h2>
+      <ol><i class="fa-solid fa-leaf"></i> Zero Waste: Can be eaten or composted; eliminates plastic disposal.</ol>
+      <ol><i class="fa-solid fa-user"></i> User Experience: Memorable “eat your spoon” novelty.</ol>
+      <ol><i class="fa-solid fa-star"></i> Premium Positioning: Eco-friendly and innovative → higher pricing.</ol>
+      <ol><i class="fa-solid fa-cutlery"></i> Food Compatibility: Works with hot/cold items; can be flavored.</ol>
+      <ol><i class="fa-solid fa-truck"></i> Convenience: Lightweight, easy to transport, no washing needed.</ol>
+      <ol><i class="fa-solid fa-arrow-trend-up"></i> Marketing Advantage: Social media-friendly; strengthens sustainability branding.</ol>
+      <ol><i class="fa-solid fa-bowl-food"></i> Ingredients: Rice Flour,Wheat Flour,Salt</ol>
+      <ol><a href="/spoon/">Learn More</a></ol>
+
+      <ol>Rating: 4.5⭐</ol>
+      <ol><a style="color: #fafafa;text-decoration: none;padding: 10px;background-color: green;border-radius: 8px;" href="/store/">Visit Store to buy now</a></ol>
+    </div>
+  </div>
+  <div class="product-row Product">
+    <img src="image/Fork.jpeg" alt="Product2" class="product-img ">
+    <div >
+      <h2 class="Product">Edible Fork</h2>
+      <ol><i class="fa-solid fa-leaf"></i> Zero Waste: Edible or biodegradable → eliminates plastic forks.</ol>
+       <ol><i class="fa-solid fa-user"></i> User Experience: Novelty enhances dining, especially for solid foods.</ol>
+        <ol><i class="fa-solid fa-star"></i> Premium Positioning: Innovative, eco-conscious product → higher value.</ol>
+       <ol><i class="fa-solid fa-cutlery"></i> Food Compatibility: Handles solid foods; can be flavored.</ol>
+       <ol><i class="fa-solid fa-truck"></i> Convenience: Lightweight, bulk-friendly, no return logistics.</ol>
+       <ol><i class="fa-solid fa-bowl-food"></i> Ingredients: Rice Flour,Wheat Flour,Salt</ol>
+       <ol><a href="/fork/">Learn More</a></ol>
+
+       <ol>Rating: 4.5⭐</ol>
+       <ol><a style="color: #fafafa;text-decoration: none;padding: 10px;background-color: green;border-radius: 8px;" href="/store/">Visit Store to buy now</a></ol>
+    </div>
+  </div>
+  <div class="product-row Product">
+    <img src="image/bowl.jpeg" alt="Product3" class="product-img">
+    <div>
+    <h2>Biodegradable Bowl</h2>
+    <ol><i class="fa-solid fa-leaf"></i> Zero Waste: Fully edible → eliminates bowl waste.</ol>
+    <ol><i class="fa-solid fa-user"></i> User Experience: Novelty for events, cafés, or desserts.</ol>
+    <ol><i class="fa-solid fa-star"></i> Premium Positioning: Innovative and sustainable → premium product.</ol>
+    <ol><i class="fa-solid fa-cutlery"></i> Food Compatibility: Holds hot/cold items; flavored options possible.</ol>
+    <ol><i class="fa-solid fa-truck"></i> Convenience: Lightweight, stackable, no cleanup required.</ol>
+    <ol><i class="fa-solid fa-bowl-food"></i> Ingredients: Rice Flour,Wheat Flour,Salt</ol>
+    <ol><a href="/bowl/">Learn More</a></ol>
+
+    <ol>Rating: 4.1⭐</ol>
+    <ol><a style="color: #fafafa;text-decoration: none;padding: 10px;background-color: green;border-radius: 8px;" href="/store/">Visit Store to buy now</a></ol>
+    
+  </div>
+  </div>
+  <div class="product-row Product">
+    <img src="image/cutlery set.jpeg" alt="Set1" class="product-img">
+    <div>
+    <h2>Edible Cutlary Set</h2>
+    <ol><i class="fa-solid fa-leaf"></i> Zero Waste: Fully edible → eliminates bowl waste.</ol>
+    <ol><i class="fa-solid fa-user"></i> User Experience: Novelty for events, cafés, or desserts.</ol>
+    <ol><i class="fa-solid fa-star"></i> Premium Positioning: Innovative and sustainable → premium product.</ol>
+    <ol><i class="fa-solid fa-cutlery"></i> Food Compatibility: Holds hot/cold items; flavored options possible.</ol>
+    <ol><i class="fa-solid fa-truck"></i> Convenience: Lightweight, stackable, no cleanup required.</ol>
+    <ol><i class="fa-solid fa-bowl-food"></i> Ingredients: Rice Flour,Wheat Flour,Salt</ol>
+ 
+    <ol><a href="/set/">Learn More</a></ol>
+
+    <ol>Rating: 4.1⭐</ol>
+    <ol><a style="color: #fafafa;text-decoration: none;padding: 10px;background-color: green;border-radius: 8px;" href="/store/">Visit Store to buy now</a></ol>
+    
+  </div>
+  </div>
+  <p id="noResults" style="display: none;text-align: center;font-size: 24px;">No product found</p>
+
+</body>
+  <footer class="main-footer">
+    <p>© 2025 Eat It Edible Utensils Pvt. Ltd. All rights reserved.</p>
+  </footer>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en"><head><base href="/"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"content="Product Cart is user friendly interface where people can purchase our products easily, can easily add or less what quantity of product they want to purchase and total price of them and can easily buy them in one click.">
+    <title>My Cart</title>
+    <link rel="stylesheet" href="css/product.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/cart.css">
+
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js.scipt/script.js"defer></script>
+    <script src="js.scipt/search.js"defer></script>
+</head>
+<body>
+    <div class="topnav">
+      <a><i class="fa-solid fa-bars" id="menu-btn"></i></a>
+    <div id="nav-links">
+      <a  href="/">Home</a>
+      <a  href="/product/">Product </a>
+      <a href="/store/">Store</a>
+      <a class="active" href="cart.html">Cart</a>
+      <a  href="/purchase/">Orders</a>
+      <a href="/help/">Help</a>
+      <a href="http://127.0.0.1:8000/">Performance</a>
+    </div>
+
+    </div>
+    <header>EAT IT  Cart <i class="fa-solid fa-shopping-cart"></i></header>
+    <div class="search-box">
+    <input type="search" id="search-input"  placeholder="Search" ><i class="fa-solid fa-search"></i></div> 
+
+
+<div class="product-card">
+    <p id="cart"><i class="fa-solid fa-shopping-cart"></i>Your cart is empty</p>
+    <p id="total"></p>
+    <p id="cart1">Add Items and Click on Buy Now</p>
+    <p><button class="btn-primary" ><a href="/purchase/">Buy Now</a></button><button class="btn-primary" id="seeprice">Total Price</button><button class="btn-secondary" id="buyall">Clear all</button>
+</div>
+<h2 style="color: white;">Recommended For you :</h2>
+<div class="product-row Product">
+    <img src="image/Spoon.jpeg" alt="Classic Spoon" class="product-img">
+    <div>
+      <h2>Edible Spoon</h2>
+    <div class="product-grid">
+      <div><p >Flavour: Classic </p>
+        <p> Quatity: 10pcs</p>
+            <p>Price: 30Rs</p>
+            <p >Rating: 4.5⭐</p></div>
+      <div><p>🚚Delivery-time: 3-4 days</p>
+        <p>🔄️Return-Policy: 1 Day</p>
+         <p>💵COD: Available</p>
+      </div>
+      <div class="col">
+        <button id="btn2" class="less-cart" style="margin-top: 50px;border: 2px solid white;"><i class="fa-solid fa-minus"></i></button><button id="display1" disabled style="background-color:   rgb(52, 52, 51);margin-top: 50px;border: 2px solid white;">0</button><button id="btn1" class="add-cart" style="margin-top: 50px;border: 2px solid white;"><i class="fa-solid fa-plus"></i></button>
+        <p><button ><a href="/purchase/">Buy Now</a></button></p>
+        <P id="see1">Total Price: 0</P>
+        <p><button id="price1" style="border: none;">See Price</button></p>
+      </div>
+
+    </div>
+    </div>
+  </div>
+
+
+<div class="product-row Product">
+    <img src="image/bowl2.jpeg" alt="Chocolate Spoon" class="product-img">
+    <div>
+        <h2>Edible Spoon🥄</h2>
+      <div class="product-grid">
+      <div><p >Flavour: Chocolate </p>
+        <p> Quatity: 10pcs</p>
+            <p>Price: 35Rs</p>
+            <p >Rating: 4.5⭐</p></div>
+      <div><p>🚚Delivery-time: 3-4 days</p>
+        <p>🔄️Return-Policy: 1 Day</p>
+         <p>💵COD: Available</p>
+          </div>
+      <div class="col">
+        <button id="btn4" class="less-cart" style="margin-top: 50px;border: 2px solid white;"><i class="fa-solid fa-minus"></i></button><button id="display2" disabled style="background-color:   rgb(52, 52, 51);margin-top: 50px;border: 2px solid white;">0</button><button id="btn3" class="add-cart" style="margin-top: 50px;border: 2px solid white;"><i class="fa-solid fa-plus"></i></button>
+        <p><button ><a href="/purchase/">Buy Now</a></button></p>
+        <P id="see2">Total Price: 0</P>
+        <p><button id="price2" style="border: none;">See Price</button></p>
+      </div>
+
+    </div>
+    </div>
+  </div>
+
+<div class="product-row Product">
+    <img src="image/fork2.jpeg" alt="Chocolate Fork" class="product-img">
+    <div>
+        <h2>Edible Fork</h2>
+            <div class="product-grid">
+      <div><p >Flavour: Chocolate </p>
+        <p> Quatity: 10pcs</p>
+          <p>Price: 35Rs</p>
+            <p >Rating: 4.5⭐</p></div>
+      <div><p>🚚Delivery-time: 3-4 days</p>
+        <p>🔄️Return-Policy: 1 Day</p>
+         <p>💵COD: Available</p>
+          </div>
+      <div class="col">
+        <button id="btn6" class="less-cart" style="margin-top: 50px;border: 2px solid white;"><i class="fa-solid fa-minus"></i></button><button id="display3" disabled style="background-color:   rgb(52, 52, 51);margin-top: 50px;border: 2px solid white;">0</button><button id="btn5" class="add-cart" style="margin-top: 50px;border: 2px solid white;"><i class="fa-solid fa-plus"></i></button>
+        <p><button ><a href="/purchase/">Buy Now</a></button></p>
+        <P id="see3">Total Price: 0</P>
+        <p><button id="price3"style="border: none;">See Price</button></p>
+      </div>
+
+    </div>
+    </div>
+  </div>
+
+<div class="product-row Product">
+    <img src="image/Fork.jpeg" alt="Classic Fork" class="product-img">
+    <div>
+        <h2>Edible Fork</h2>
+            <div class="product-grid">
+      <div><p >Flavour: Classic </p>
+        <p> Quatity: 10pcs</p>
+            <p>Price: 30Rs</p>
+            <p >Rating: 4.5⭐</p></div>
+      <div><p>🚚Delivery-time: 3-4 days</p>
+        <p>🔄️Return-Policy: 1 Day</p>
+         <p>💵COD: Available</p>
+          </div>
+      <div class="col">
+        <button id="btn8" class="less-cart" style="margin-top: 50px;border: 2px solid white;"><i class="fa-solid fa-minus"></i></button><button id="display4" disabled style="background-color:   rgb(52, 52, 51);margin-top: 50px;border: 2px solid white;">0</button><button id="btn7" class="add-cart" style="margin-top: 50px;border: 2px solid white;"><i class="fa-solid fa-plus"></i></button>
+        <p><button ><a href="/purchase/">Buy Now</a></button></p>
+        <P id="see4">Total Price: 0</P> 
+        <p><button id="price4"style="border: none;">See Price</button></p>
+      </div>
+
+    </div>
+    </div>
+  </div>
+
+<div class="product-row Product">
+    <img src="image/bowl.jpeg" alt="Classic Bowl" class="product-img" >
+    <div>
+        <h2>Edible Bowl🥣</h2>
+      <div class="product-grid">
+      <div><p >Flavour: Classic </p>
+        <p> Quatity: 10pcs</p>
+            <p>Price: 60Rs</p>
+            <p >Rating: 4.5⭐</p></div>
+      <div><p>🚚Delivery-time: 3-4 days</p>
+        <p>🔄️Return-Policy: 1 Day</p>
+         <p>💵COD: Available</p>
+          </div>
+      <div class="col">
+        <button id="btn10" class="less-cart" style="border: 2px solid white;"><i class="fa-solid fa-minus"></i></button><button id="display5" disabled style="background-color:   rgb(52, 52, 51);border: 2px solid white;">0</button><button id="btn9" class="add-cart" style="border: 2px solid white;"><i class="fa-solid fa-plus"></i></button>
+        <p><button ><a href="/purchase/">Buy Now</a></button></p>
+        <P id="see5">Total Price: 0</P>
+        <p><button id="price5"style="border: none;">See Price</button></p>
+      </div>
+
+    </div>
+    </div>
+  </div>
+
+<div class="product-row Product">
+    <img src="image/spoon2.jpeg" alt="Chocolate Bowl" class="product-img" >
+    <div>
+        <h2>Edible Bowl</h2>
+            <div class="product-grid">
+      <div><p >Flavour: Chocolate </p>
+        <p> Quatity: 10pcs</p>
+            <p>Price: 70Rs</p>
+            <p >Rating: 4.5⭐</p></div>
+      <div><p>🚚Delivery-time: 3-4 days</p>
+        <p>🔄️Return-Policy: 1 Day</p>
+         <p>💵COD: Available</p>
+          </div>
+      <div class="col"> 
+        <button id="btn12" class="less-cart" style="margin-top: 50px;border: 2px solid white;"><i class="fa-solid fa-minus"></i></button><button id="display6" disabled style="background-color:   rgb(52, 52, 51);margin-top: 50px;border: 2px solid white;">0</button><button id="btn11" class="add-cart" style="margin-top: 50px;border: 2px solid white;"><i class="fa-solid fa-plus"></i></button>
+        <p><button ><a href="/purchase/">Buy Now</a></button></p>
+     <P id="see6">Total Price: 0</P>
+        <p><button id="price6"style="border: none;">See Price</button></p>
+      </div>
+
+    </div>
+    </div>
+  </div>
+
+  <p id="noResults" style="display: none;text-align: center;font-size: 24px;">No product found</p>
+
+</div>
+</body>
+  <footer class="main-footer">
+    <p>© 2025 Eat It Edible Utensils Pvt. Ltd. All rights reserved.</p>
+  </footer>
+</html>

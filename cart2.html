@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en"><head><base href="/"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"content="Product Cart is user friendly interface where people can purchase our products easily, can easily add or less what quantity of product they want to purchase and total price of them and can easily buy them in one click.">
+    <title>My Cart</title>
+    <link rel="stylesheet" href="css/product.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+        <script>
+        async function checkAuth() {
+            try {
+                const res = await fetch('http://127.0.0.1:8000/api/auth/profile/',{
+                    credentials: 'include'
+                });
+            
+               if (res.status===401) {
+                window.location.href = '/login/';
+               }
+            } catch(e) {
+                window.location.href = '/login/';
+
+            }
+            
+        }
+        checkAuth();
+    </script>
+    <script>const prices = {
+    classicspoon: 30, chocolatespoon: 35,
+    classicfork: 30, chocolatefork: 35,
+    classicbowl: 60, chocolatebowl: 70,
+    classicset: 100, chocolateset: 120
+};
+
+const itemMap = {
+    1: "classicspoon", 2: "chocolatespoon", 
+    3: "chocolatefork", 4: "classicfork", 
+    5: "classicbowl", 6: "chocolatebowl",
+    7: "classicset" , 8: "chocolateset"
+};
+
+function getCartState() {
+    return {
+        cartCount: parseInt(localStorage.getItem('cartCount')) || 0,
+        classicspoonCount: parseInt(localStorage.getItem('classicspoonCount')) || 0,
+        chocolatespoonCount: parseInt(localStorage.getItem('chocolatespoonCount')) || 0,
+        classicforkCount: parseInt(localStorage.getItem('classicforkCount')) || 0,
+        chocolateforkCount: parseInt(localStorage.getItem('chocolateforkCount')) || 0,
+        classicbowlCount: parseInt(localStorage.getItem('classicbowlCount')) || 0,
+        chocolatebowlCount: parseInt(localStorage.getItem('chocolatebowlCount')) || 0,
+        classicsetCount: parseInt(localStorage.getItem('classicsetCount')) || 0,
+        chocolatesetCount: parseInt(localStorage.getItem('chocolatesetCount')) || 0
+    };
+}
+
+function saveData(state) {
+    Object.keys(state).forEach(key => localStorage.setItem(key, state[key]));
+}
+
+function updateUI() {
+            const s = getCartState();
+    
+    for (let i = 1; i <= 8; i++) {
+        const el = document.getElementById(`display${i}`);
+        if (el) el.innerText = s[`${itemMap[i]}Count`];
+        const totalEl = document.getElementById("total");
+        if (totalEl) totalEl.innerText = `Total price: Rs.${calculateTotal()}`;
+    }
+
+    const cartEl = document.getElementById("cart");
+    if (cartEl) {
+        cartEl.innerHTML = s.cartCount > 0 
+            ? `<i class="fa-solid fa-shopping-cart"></i> Item selected: ${s.cartCount}` 
+            : `<i class="fa-solid fa-shopping-cart"></i> Your cart is empty`;
+    }
+}
+
+function calculateTotal() {
+    const s = getCartState();
+    return Object.keys(prices).reduce((total, key) => total + (s[`${key}Count`] || 0) * prices[key], 0);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    for (let i = 1; i <= 8; i++) {
+        const addBtn = document.getElementById(`btn${(i * 2) - 1}`);
+        const lessBtn = document.getElementById(`btn${i * 2}`);
+        const removeBtn = document.getElementById(`btnr${i}`)
+        const key = `${itemMap[i]}Count`;
+
+
+        if (addBtn) addBtn.onclick = () => {
+            let s = getCartState();
+            s[key]++; s.cartCount++;
+            saveData(s); updateUI();
+            alert("Item added to the cart!!!");
+};
+
+        if (lessBtn) lessBtn.onclick = () => {
+            let s = getCartState();
+            if (s[key] > 0) {
+                s[key]--; s.cartCount--;
+                saveData(s); updateUI();
+                alert("Item deducted from the cart!!!");
+            }
+        };
+        if (removeBtn) removeBtn.onclick = () => {
+            let s = getCartState();
+            if (s[key]>0) {
+                s.cartCount -= s[key];
+                s[key] = 0
+                saveData(s); updateUI();
+                alert(`${itemMap[i]} removed from cart!!`)
+            }
+
+    };
+
+        const pBtn = document.getElementById(`price${i}`);
+        if (pBtn) pBtn.onclick = () => {
+            const s = getCartState();
+            const seePriceEl = document.getElementById(`see${i}`);
+            if (seePriceEl) seePriceEl.innerText = `Total Price: ${s[key] * prices[itemMap[i]]}`;
+};
+
+        const bBtn = document.getElementById(`Buy${i}`);
+        if (bBtn) bBtn.onclick = () => {
+            let s = getCartState();
+            if (s[key] > 0) {
+                s.cartCount -= s[key];
+                s[key] = 0;
+                saveData(s); updateUI();
+                const seePriceEl = document.getElementById(`see${i}`);
+                if (seePriceEl) seePriceEl.innerText = "Total Price: 0";
+                alert("Congratulations !!! Your order for this item recorded successfully.");
+    }
+};
+    }
+
+
+
+    document.getElementById("buyall")?.addEventListener("click", () => {
+        const reset = { cartCount: 0, classicspoonCount: 0, chocolatespoonCount: 0, classicforkCount: 0, chocolateforkCount: 0, classicbowlCount: 0, chocolatebowlCount: 0, classicsetCount: 0, chocolatesetCount: 0 };
+        saveData(reset); updateUI();
+        const totalEl = document.getElementById("total");
+        if (totalEl) totalEl.innerText = "";
+        for(let i=1; i<=8; i++) {
+            const seePriceEl = document.getElementById(`see${i}`);
+            if (seePriceEl) seePriceEl.innerText = "Total Price: 0";
+    }
+    });
+
+    document.querySelector('.product-card .add-buy')?.addEventListener("click", () => {
+        window.location.href = "purchase.html";
+    });
+    updateUI();
+});
+</script>
+    <script src="/js.scipt/search.js"defer></script>
+    <script src="/js.scipt/filter.js"defer></script>
+    <style>
+      .topnav {
+    background:  #1e8449;
+    padding: 0 5%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-soft);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    
+}
+          header{
+    color: #fafafa;
+    font-size: 32px;
+    font-weight: 400;
+    background: #1e8449;
+    font-family:Arial, Helvetica, sans-serif;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    font-display: fallback;
+    }
+        @media (max-width: 768px) {
+    .topnav {
+        display: none;
+        padding: 0px;
+        visibility: none;
+    }
+  }
+    </style>
+</head>
+<body>
+    <div class="topnav">
+    <div id="nav-links">
+      <a  href="/">Home</a>
+      <a  href="/product/">Product </a>
+      <a href="/store/">Store</a>
+      <a class="active" href="/cart/">Cart</a>
+      <a  href="/purchase/">Orders</a>
+      <li><a href="/orders/">Order History</a></li>
+      
+      <a href="/help/">Help</a>
+      
+       </div>
+    <select id="select1" ><option value="all">All
+    </option>
+  <option value="classic">Classic</option>
+  <option value="cake">Chocolate</option>
+</select>
+    <div class="search-wrapper" id="searchWrapper">
+        <i class="fa-solid fa-search" id="search-trigger"></i>
+        <input type="search" id="search-input" placeholder="Search eco-products...">
+    </div>   
+    <div style="float: right;color: white;border-radius: 50px;border-color: white;border-width: 3px;box-sizing: border-box;"><li><a href="/profile/"><i class="fa-solid fa-user" style="color: #fff;"></i></a></li></div>   
+    </div>
+      <div class="side-nav-overlay" id="navOverlay"></div>
+  <nav class="side-nav" id="sideNav">
+    <div class="side-nav-header">
+      <img src="image/logo.png" alt="EAT IT" style="height:32px;"><span>EAT IT</span>
+      <button class="side-nav-close" id="navClose">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="side-nav-links">
+      <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="/product/"><i class="fa-solid fa-utensils"></i> Product</a>
+      <a href="/store/"><i class="fa-solid fa-store"></i> Store</a>
+      <a href="/cart/"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+      <a href="/purchase/"><i class="fa-solid fa-box"></i> Orders</a>
+      <a href="/orders/"><i class="fa-solid fa-clock-rotate-left"></i> Order History</a>
+          <a href="/profile/"><i class="fa-solid fa-user"></i> Profile</a>
+      <a href="/help/"><i class="fa-solid fa-circle-question"></i> Help</a>
+    </div>
+  </nav>
+
+  <!-- Your existing header -->
+  <header class="site-header">
+    <div class="mobile-header-bar">
+      <button class="hamburger" id="navOpen">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="mobile-icons">
+      <div class="search-wrapper mobile-only-search pls">
+        <i class="fa-solid fa-search "></i>
+        <input type="search" id="mobile-search-input" placeholder="Search eco-products...">
+      </div>
+        <a href="/store/"><i class="fa-solid fa-store"></i></a><a href="/help/" class="mobile"><i class="fa-solid fa-headset"></i></a>
+            <select id="select2" class="mobile" ><option value="all">All
+    </option>
+  <option value="classic">Classic</option>
+  <option value="cake">Chocolate</option>
+</select>
+      </div>
+    </div>
+  </header>
+
+    <header>
+        <img src="image/logo.png" class="logo">
+      <div class="pls">EAT iT  Cart</div>
+</header>
+
+
+<div class="product-card">
+    <h2 id="cart" style="color: rgb(4, 4, 4);"><i class="fa-solid fa-shopping-cart"></i>Your cart is empty</h2>
+    <h1 id="total"></h1>
+    <br>
+
+    <p><button class="btn-primary" ><a href="/purchase/">Checkout</a></button><button class="btn-secondary" id="buyall">Clear Cart</button>
+</div>
+<h2 style="color: rgb(7, 7, 7);text-align: center;"> Recommended For you </h2>
+<div class="product-row Product classic">
+    <img src="image/Spoon.jpeg" alt="Classic Spoon" class="product-img">
+    <div>
+      <h2>Edible Spoon <span class="discountflicker"> 20% OFF</span></h2>
+    <div class="product-grid">
+      <div><p class="highlight" ><i class="fa-solid fa-leaf"></i>  Flavour : Classic </p>
+        <p><i class="fa-solid fa-box"></i> Quantity : 10pcs</p>
+        <p class="oldprice" ><i class="fa-solid fa-wallet"></i> Old Price : ₹37.5</p>
+            <p class="highlight"><i class="fa-solid fa-wallet"></i>New Price : ₹30</p>
+            <p ><i class ="fa fa-solid fa-star"></i> Rating : 4.5⭐</p>
+                  <p class="discountflicker">Discount auto applied at checkout</p></div>
+
+     <div >
+     <div style="text-align: center;"><button id="btn2" class="less-cart" style="border: 2px solid white;"><i class="fa-solid fa-minus"></i></button><button id="display1" disabled style="background-color:   rgb(52, 52, 51);border: 2px solid white;">0</button><button id="btn1" class="add-cart" style="border: 2px solid white;"><i class="fa-solid fa-plus"></i></button></div>
+        <p style="text-align: center;"><button class="btn-secondary" id="btnr1">Remove</button></p>
+     </div>
+    
+
+    </div>
+    </div>
+  </div>
+
+
+<div class="product-row Product cake">
+    <img src="image/bowl2.jpeg" alt="Chocolate Spoon" class="product-img">
+    <div>
+        <h2>Edible Spoon <span class="discountflicker"> 20% OFF</span></h2>
+      <div class="product-grid">
+        <div><p class="highlight"><i class="fa-solid fa-leaf"></i>  Flavour : Chocolate </p>
+        <p><i class="fa-solid fa-box"></i> Quantity : 10pcs</p>
+        <p class="oldprice"><i class="fa-solid fa-wallet"></i>Old  Price : ₹44</p>
+            <p class="highlight"><i class="fa-solid fa-wallet"></i>New Price : ₹35</p>
+            <p ><i class ="fa fa-solid fa-star"></i>  Rating : 4.5⭐</p>
+                  <p class="discountflicker">Discount auto applied at checkout</p></div>
+        <div>
+        <div style="text-align: center;"><button id="btn4" class="less-cart" style="border: 2px solid white;"><i class="fa-solid fa-minus"></i></button><button id="display2" disabled style="background-color:   rgb(52, 52, 51);border: 2px solid white;">0</button><button id="btn3" class="add-cart" style="border: 2px solid white;"><i class="fa-solid fa-plus"></i></button></div>
+        <p style="text-align: center;"><button class="btn-secondary" id="btnr2">Remove</button></p>
+        </div>
+    </div>
+    </div>
+  </div>
+
+<div class="product-row Product cake">
+    <img src="image/fork2.jpeg" alt="Chocolate Fork" class="product-img">
+    <div>
+        <h2>Edible Fork <span class="discountflicker"> 10% OFF</span></h2>
+            <div class="product-grid">
+                  <div><p class="highlight"><i class="fa-solid fa-leaf"></i>  Flavour : Chocolate </p>
+        <p><i class="fa-solid fa-box"></i> Quantity : 10pcs</p>
+        <p class="oldprice"><i class="fa-solid fa-wallet"></i>Old  Price : ₹40</p>
+            <p class="highlight"><i class="fa-solid fa-wallet"></i>New Price : ₹35</p>
+            <p ><i class ="fa fa-solid fa-star"></i>  Rating : 4.5⭐</p>
+                    <p class="discountflicker">Discount auto applied at checkout</p></div>
+        <div>
+        <div style="text-align: center;"><button id="btn6" class="less-cart" style="border: 2px solid white;"><i class="fa-solid fa-minus"></i></button><button id="display3" disabled style="background-color:   rgb(52, 52, 51);border: 2px solid white;">0</button><button id="btn5" class="add-cart" style="border: 2px solid white;"><i class="fa-solid fa-plus"></i></button></div>
+        <p style="text-align: center;"><button class="btn-secondary" id="btnr3">Remove</button></p>
+        </div>
+
+    </div>
+    </div>
+  </div>
+
+<div class="product-row Product classic">
+    <img src="image/Fork.jpeg" alt="Classic Fork" class="product-img">
+    <div>
+        <h2>Edible Fork <span class="discountflicker"> 10% OFF</span></h2>
+            <div class="product-grid">
+                      <div><p class="highlight"><i class="fa-solid fa-leaf"></i>  Flavour : Classic </p>
+        <p><i class="fa-solid fa-box"></i>  Quantity : 10pcs</p>
+        <p class="oldprice"><i class="fa-solid fa-wallet"></i>Old  Price : ₹33</p>
+            <p class="highlight"><i class="fa-solid fa-wallet"></i>New Price : ₹30</p>
+            <p ><i class ="fa fa-solid fa-star"></i>  Rating : 4.5⭐</p>   
+                    <p class="discountflicker">Discount auto applied at checkout</p></div>
+        <div>
+        <div style="text-align: center;"><button id="btn8" class="less-cart" style="border: 2px solid white;"><i class="fa-solid fa-minus"></i></button><button id="display4" disabled style="background-color:   rgb(52, 52, 51);border: 2px solid white;">0</button><button id="btn7" class="add-cart" style="border: 2px solid white;"><i class="fa-solid fa-plus"></i></button></div>
+        <p style="text-align: center;"><button class="btn-secondary" id="btnr4">Remove</button></p>
+        </div>
+        
+
+    </div>
+    </div>
+  </div>
+
+<div class="product-row Product classic">
+    <img src="image/bowl.jpeg" alt="Classic Bowl" class="product-img" >
+    <div>
+        <h2>Edible Bowl <span class="discountflicker"> 15% OFF</span></h2>
+      <div class="product-grid">
+              <div><p class="highlight"><i class="fa-solid fa-leaf"></i>  Flavour : Classic </p>
+        <p><i class="fa-solid fa-box"></i>  Quantity : 10pcs</p>
+         <p class="oldprice"><i class="fa-solid fa-wallet"></i>Old  Price : ₹70.5</p>
+            <p class="highlight"><i class="fa-solid fa-wallet"></i>New  Price : ₹60</p>
+            <p ><i class ="fa fa-solid fa-star"></i>  Rating : 4.5⭐</p>
+            <p class="discountflicker">Discount auto applied at checkout</p>
+          </div>
+    <div>
+        <div style="text-align: center;"><button id="btn10" class="less-cart" style="border: 2px solid white;"><i class="fa-solid fa-minus"></i></button><button id="display5" disabled style="background-color:   rgb(52, 52, 51);border: 2px solid white;">0</button><button id="btn9" class="add-cart" style="border: 2px solid white;"><i class="fa-solid fa-plus"></i></button></div>
+        <p style="text-align: center;"><button class="btn-secondary" id="btnr5">Remove</button></p>
+        </div>
+
+    </div>
+    </div>
+  </div>
+
+<div class="product-row Product cake">
+    <img src="image/spoon2.jpeg" alt="Chocolate Bowl" class="product-img" >
+    <div>
+        <h2>Edible Bowl <span class="discountflicker"> 15% OFF</span></h2>
+            <div class="product-grid">
+                      <div><p class="highlight"><i class="fa-solid fa-leaf"></i> Flavour : Chocolate </p>
+        <p><i class="fa-solid fa-box"></i> Quantity : 10pcs</p>
+        <p class="oldprice"><i class="fa-solid fa-wallet"></i>Old  Price : ₹82</p>
+            <p class="highlight"><i class="fa-solid fa-wallet"></i>New Price : ₹70</p>
+            <p ><i class ="fa fa-solid fa-star"></i> Rating : 4.5⭐</p>
+                    <p class="discountflicker">Discount auto applied at checkout</p>
+          </div>
+        <div>
+        <div style="text-align: center;"><button id="btn12" class="less-cart" style="border: 2px solid white;"><i class="fa-solid fa-minus"></i></button><button id="display6" disabled style="background-color:   rgb(52, 52, 51);border: 2px solid white;">0</button><button id="btn11" class="add-cart" style="border: 2px solid white;"><i class="fa-solid fa-plus"></i></button></div>
+        <p style="text-align: center;"><button class="btn-secondary" id="btnr6">Remove</button></p>
+        </div>
+
+    </div>
+    </div>
+</div>
+  <div class="product-row Product cake">
+    <img src="image/cutlery set.jpeg" alt="Chocolate Bowl" class="product-img" >
+    <div>
+        <h2>Classic cutlery set <span class="discountflicker"> 10% OFF</span></h2>
+            <div class="product-grid">
+                      <div><p class="highlight"><i class="fa-solid fa-leaf"></i> Flavour : Chocolate </p>
+        <p><i class="fa-solid fa-box"></i> Quantity : 1 Unit</p>
+        <p class="oldprice"><i class="fa-solid fa-wallet"></i>Old  Price : ₹111</p>
+            <p class="highlight"><i class="fa-solid fa-wallet"></i>New Price : ₹100</p>
+            <p ><i class ="fa fa-solid fa-star"></i> Rating : 4.5⭐</p>
+                    <p class="discountflicker">Discount auto applied at checkout</p>
+          </div>
+        <div>
+        <div style="text-align: center;"><button id="btn14" class="less-cart" style="border: 2px solid white;"><i class="fa-solid fa-minus"></i></button><button id="display7" disabled style="background-color:   rgb(52, 52, 51);border: 2px solid white;">0</button><button id="btn13" class="add-cart" style="border: 2px solid white;"><i class="fa-solid fa-plus"></i></button></div>
+        <p style="text-align: center;"><button class="btn-secondary" id="btnr7">Remove</button></p>
+        </div>
+
+    </div>
+    </div>
+  </div>
+  <div class="product-row Product cake">
+    <img src="image/cutlery set.jpeg" alt="Chocolate Bowl" class="product-img" >
+    <div>
+        <h2>Chocolate Cutlary Set
+          <span class="discountflicker"> 10% OFF</span></h2>
+            <div class="product-grid">
+                      <div><p class="highlight"><i class="fa-solid fa-leaf"></i> Flavour : Chocolate </p>
+        <p><i class="fa-solid fa-box"></i> Quantity : 1 Unit</p>
+        <p class="oldprice"><i class="fa-solid fa-wallet"></i>Old  Price : ₹133</p>
+            <p class="highlight"><i class="fa-solid fa-wallet"></i>New Price : ₹120</p>
+            <p ><i class ="fa fa-solid fa-star"></i> Rating : 4.5⭐</p>
+                    <p class="discountflicker">Discount auto applied at checkout</p>
+          </div>
+        <div>
+        <div style="text-align: center;"><button id="btn16" class="less-cart" style="border: 2px solid white;"><i class="fa-solid fa-minus"></i></button><button id="display8" disabled style="background-color:   rgb(52, 52, 51);border: 2px solid white;">0</button><button id="btn15" class="add-cart" style="border: 2px solid white;"><i class="fa-solid fa-plus"></i></button></div>
+        <p style="text-align: center;"><button class="btn-secondary" id="btnr8">Remove</button></p>
+        </div>
+
+    </div>
+    </div>
+  </div>
+
+  <p id="noResults" style="display: none;text-align: center;font-size: 24px;">No product found</p>
+
+</div>
+</body>
+  <footer class="main-footer">
+    <p>© 2025 Eat It Edible Utensils Pvt. Ltd. All rights reserved.</p>
+  </footer>
+</html>

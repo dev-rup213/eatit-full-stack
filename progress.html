@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Progress</title>
+<head><base href="/">
+<style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-deep:    #0a3d1f;
+      --green-dark:    #145a32;
+      --green-mid:     #1e8449;
+      --green-bright:  #27ae60;
+      --green-light:   #2ecc71;
+      --green-pale:    #a9dfbf;
+      --green-tint:    #d5f5e3;
+      --white:         #ffffff;
+      --off-white:     #f0faf4;
+      --text-main:     #0d2b14;
+      --text-sub:      #4a7c59;
+      --text-muted:    #88b898;
+      --error:         #e74c3c;
+      --error-bg:      #fdecea;
+      --warn:          #f39c12;
+      --glass-bg:      rgba(255,255,255,0.10);
+      --glass-border:  rgba(255,255,255,0.22);
+      --shadow-card:   0 24px 64px rgba(10,61,31,0.28), 0 4px 16px rgba(10,61,31,0.14);
+      --radius:        18px;
+      --transition:    0.38s cubic-bezier(.4,0,.2,1);
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: var(--green-deep);
+      overflow-x: hidden;
+    }
+
+    /* ── Animated gradient background ── */
+    .bg-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, #1e8449 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 90%, #145a32 0%, transparent 60%),
+        radial-gradient(ellipse 100% 100% at 50% 50%, #0a3d1f 0%, #051a0d 100%);
+      animation: bgPulse 8s ease-in-out infinite alternate;
+    }
+    @keyframes bgPulse {
+      0%   { filter: brightness(1); }
+      100% { filter: brightness(1.12); }
+    }
+
+    /* Floating leaf particles */
+    .particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+    .particle {
+      position: absolute;
+      width: 6px; height: 6px;
+      border-radius: 50% 0 50% 0;
+      background: rgba(46,204,113,0.18);
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 0.6; }
+      100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+    }
+
+    .Progress{
+        border-radius: 2rem;
+        box-shadow: 0 0 0 4px #444, 
+                    0 0 0 6px white;
+        width: 300px;
+        padding: 1rem;
+        font-size: 1.5rem;
+        overflow:clip;
+        display: grid;
+        background: white;
+        border: 1px solid #444;
+        z-index: 9999;
+        margin: 300px auto 100px ;
+        color: #fff;
+
+    }
+    .progress-bar,.progress-text{
+        grid-area: 1/1;
+    }
+    .progress-bar{
+        background: #002816;
+        margin: -1rem;
+        transform: scaleX(0);
+        animation: grow 5s ease-in-out infinite alternate-reverse;
+        transform-origin: right;
+
+    }
+    .progress-text{
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    mix-blend-mode: difference;
+    
+
+    }
+    @keyframes grow {
+        from{
+            transform: scaleX(0);
+        }
+        to {
+            transform: scaleX(1);
+        }
+    }
+    
+</style>
+
+
+</head>
+<body>
+    <div class="bg-canvas"></div>
+    <div class="particles" id="particles"></div>
+    <div class="Progress">
+        <div class="progress-bar"></div>
+        <div class="progress-text">Loading....</div>
+    </div>
+
+
+</body>

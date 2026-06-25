@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><base href="/">
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="desciption" content="Login interface to enter in our website">
+    <script src="js.scipt/auth.js"defer></script>
+    <script>
+        async function checkAuth() {
+            try {
+                const res = await fetch('http://127.0.0.1:8000/api/auth/profile/',{
+                    credentials: 'include'
+                });
+            
+               if (res.status===401) {
+                window.location.href = '/login/';
+               }
+            } catch(e) {
+                window.location.href = '/login/';
+
+            }
+            
+        }
+        checkAuth();
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 320px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input {
+            
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #4facfe;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        input::placeholder{
+            position: absolute;
+            top: 8px;
+            left: 16px;
+        }
+        .input::placeholder:active{
+            top: -9px;
+            background-color: black;
+            color: white;
+        }
+
+        button:hover {
+            background: #00c6ff;
+        }
+        .Forget {
+            text-decoration: underline;
+            color: blue;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .error {
+            color: red;
+            font-size: 13px;
+            display: none;
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .link a {
+            color: #4facfe;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-box">
+            <svg viewBox="0 0 32 32" fill="none">
+          <ellipse cx="16" cy="20" rx="10" ry="6" fill="rgba(255,255,255,0.15)"/>
+          <path d="M16 4 C10 4 8 10 8 14 C8 18 11 22 16 22 C21 22 24 18 24 14 C24 10 22 4 16 4Z" fill="white" opacity="0.9"/>
+          <path d="M16 8 C14 10 13 13 14 16" stroke="#27ae60" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+    <h2>Login</h2>
+
+   
+        <p>Username</p>
+        <input type="text" id="username" placeholder="Username">
+        <p>Password</p>
+        <input type="password" id="password" placeholder="Password">
+        <p class="error" >Invalid username or password</p>
+        <a class="Forget">Forget Password </a>
+        <button type="button" id="Login">Login</button>
+    
+
+</div>
+
+</body>
+</html>

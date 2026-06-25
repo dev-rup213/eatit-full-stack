@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Orders — EAT iT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/all.min.css/"/>
+
+      <script>
+        async function checkAuth() {
+            try {
+                const res = await fetch('http://127.0.0.1:8000/api/auth/profile/',{
+                    credentials: 'include'
+                });
+            
+               if (res.status===401) {
+                window.location.href = '/login/';
+               }
+            } catch(e) {
+                window.location.href = '/login/';
+
+            }
+            
+        }
+        checkAuth();
+    </script>
+
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #1b5e20;
+      --primary-light: #2e7d32;
+      --accent: #4caf50;
+      --text-main: #1a1a1a;
+      --text-muted: #5f6368;
+      --bg-light: #f8f9fa;
+      --white: #ffffff;
+      --shadow-soft: 0 4px 20px rgba(0,0,0,0.08);
+      --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f5f5;
+      color: #222;
+    }
+
+    /* ── DESKTOP NAVBAR ── */
+    .topnav {
+      background: #1e8449;
+      padding: 0 5%;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-soft);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    #nav-links {
+      display: flex;
+      gap: 24px;
+      padding: 1.5rem;
+      list-style: none;
+    }
+    #nav-links a {
+      text-decoration: none;
+      color: var(--white);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      position: relative;
+    }
+    #nav-links a:hover, #nav-links a.active { color: var(--white); }
+    #nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px; left: 0;
+      width: 100%; height: 2px;
+      background: white;
+    }
+    .search-wrapper {
+      position: relative;
+      display: flex; align-items: center;
+      background: rgba(255,255,255,0.2);
+      padding: 8px 12px;
+      border-radius: 50px;
+      transition: var(--transition);
+      width: 40px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .search-wrapper.active {
+      width: 250px;
+      background: var(--white);
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+    .search-wrapper i { color: white; font-size: 1.1rem; min-width: 20px; }
+    .search-wrapper.active i { color: var(--text-main); }
+    #search-input {
+      border: none; background: transparent; outline: none;
+      padding: 0 10px; width: 100%;
+      font-family: 'Poppins', sans-serif; font-size: 0.9rem;
+      opacity: 0; transition: var(--transition); color: var(--text-main);
+    }
+    .search-wrapper.active #search-input { opacity: 1; }
+
+    /* ── SIDE NAV ── */
+    .side-nav-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.3s ease; z-index: 998;
+    }
+    .side-nav {
+      position: fixed; top: 0; left: 0;
+      width: 280px; height: 100%;
+      background: #fff;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 999;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+    }
+    .side-nav-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #dadce0;
+    }
+    .side-nav-close {
+      background: none; border: none;
+      font-size: 1.5rem; color: #5f6368; cursor: pointer;
+    }
+    .side-nav-links { padding: 0.5rem 0; }
+    .side-nav-links a {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.5rem;
+      color: #202124; text-decoration: none;
+      font-size: 1rem; font-weight: 500;
+    }
+    .side-nav-links a:hover { background: #f8f9fa; }
+    .side-nav-links i { width: 1.25rem; color: #188038; }
+
+    /* ── MOBILE HEADER ── */
+    .mobile-header-bar {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: #1e8449;
+      gap: 40px;
+      z-index: 1000;
+    }
+    .hamburger {
+      background: none; border: none;
+      color: #fff; font-size: 1.25rem; cursor: pointer; padding: 0.5rem;
+    }
+    .mobile-icons { display: flex; gap: 1rem; margin-left: auto; }
+    .mobile-icons a { color: white; font-size: 1.1rem; }
+    .site-header { position: sticky; top: 0; z-index: 100; }
+
+    .mobile-header-bar .search-wrapper {
+      width: 30px; height: 30px;
+      padding: 8px 10px;
+      border-radius: 50px;
+      background: none; border: none;
+      transition: var(--transition);
+      display: flex; align-items: center;
+      overflow: hidden;
+      transform: translateX(-20px);
+    }
+    .mobile-header-bar .search-wrapper.active {
+      width: 200px;
+      background: var(--white);
+      box-shadow: 0 0 0 2px var(--primary-light);
+      transform: translateX(-20px);
+    }
+    .mobile-header-bar  i { color: white; font-size: 1rem; min-width: 20px; }
+    .mobile-header-bar .search-wrapper.active i { color: #1a1a1a; }
+    #mobile-search-input {
+      opacity: 0; width: 100%; font-size: 0.9rem;
+      padding-left: 8px; transition: var(--transition);
+      color: var(--text-main); background: transparent;
+      border: none; outline: none;
+    }
+    .mobile-header-bar .search-wrapper.active #mobile-search-input { opacity: 1; }
+
+    body.nav-open { overflow: hidden; }
+    body.nav-open .side-nav { transform: translateX(0); }
+    body.nav-open .side-nav-overlay { opacity: 1; visibility: visible; }
+
+    @media (max-width: 768px) {
+      .topnav { display: none; }
+      .mobile-header-bar { display: flex; }
+    }
+
+    /* ── HERO BANNER ── */
+    .hero-banner {
+      background: #1e8449;
+      padding: 20px 24px 24px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .hero-logo {
+      width: 56px; height: 56px;
+      background: white;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+    .hero-logo svg { width: 36px; height: 36px; }
+    .hero-title {
+      font-size: 26px; font-weight: 700;
+      color: white; letter-spacing: 0.5px;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .main { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .page-title {
+      font-size: 20px; font-weight: 700; color: #1e8449;
+    }
+    .page-subtitle { font-size: 13px; color: #666; margin-top: 2px; }
+    .user-badge {
+      display: flex; align-items: center; gap: 8px;
+      background: #e8f5e9;
+      border: 1px solid #a5d6a7;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px; color: #1e8449; font-weight: 500;
+    }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px; margin-bottom: 24px;
+    }
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      text-align: center;
+      border-top: 3px solid #1e8449;
+    }
+    .stat-number {
+      font-size: 24px; font-weight: 700;
+      color: #1e8449;
+    }
+    .stat-label {
+      font-size: 12px; color: #888;
+      margin-top: 4px;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 20px; flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 7px 16px;
+      border-radius: 20px;
+      border: 1px solid #ddd;
+      background: white;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px; cursor: pointer;
+      transition: all 0.2s; color: #555;
+    }
+    .filter-btn.active {
+      background: #1e8449; color: white;
+      border-color: #1e8449;
+    }
+    .filter-btn:hover:not(.active) { border-color: #1e8449; color: #1e8449; }
+
+    /* ── LOADING ── */
+    .loading-wrap {
+      text-align: center; padding: 60px 20px;
+    }
+    .spinner {
+      width: 40px; height: 40px;
+      border: 3px solid #e0e0e0;
+      border-top-color: #1e8449;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { font-size: 14px; color: #888; }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center; padding: 60px 20px;
+      background: white; border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .empty-icon {
+      width: 80px; height: 80px;
+      background: #e8f5e9;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .empty-title { font-size: 18px; font-weight: 600; color: #333; margin-bottom: 8px; }
+    .empty-sub { font-size: 14px; color: #888; margin-bottom: 24px; }
+    .btn-shop {
+      display: inline-block;
+      padding: 12px 28px;
+      background: #1e8449; color: white;
+      border-radius: 25px; text-decoration: none;
+      font-size: 14px; font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-shop:hover { background: #145a32; transform: translateY(-1px); }
+
+    /* ── ORDER CARD ── */
+    .order-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .order-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+
+    .order-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid #f0f0f0;
+      flex-wrap: wrap; gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .order-header:hover { background: #fafafa; }
+
+    .order-id-wrap { display: flex; align-items: center; gap: 10px; }
+    .order-icon {
+      width: 38px; height: 38px;
+      background: #e8f5e9;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .order-id {
+      font-size: 15px; font-weight: 700; color: #222;
+    }
+    .order-date { font-size: 12px; color: #888; margin-top: 2px; }
+
+    .order-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+    .status-badge {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px; font-weight: 600;
+      text-transform: capitalize;
+    }
+    .status-pending  { background: #fff3cd; color: #856404; }
+    .status-confirmed { background: #d1ecf1; color: #0c5460; }
+    .status-delivered { background: #d4edda; color: #155724; }
+
+    .payment-badge {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px; font-weight: 500;
+      background: #f3f4f6; color: #555;
+      text-transform: uppercase;
+    }
+
+    .order-total {
+      font-size: 16px; font-weight: 700;
+      color: #1e8449;
+    }
+
+    .chevron {
+      color: #aaa;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+    .order-card.open .chevron { transform: rotate(180deg); }
+
+    /* ── ORDER BODY ── */
+    .order-body {
+      display: none;
+      padding: 0 20px 20px;
+    }
+    .order-card.open .order-body { display: block; }
+
+    .items-title {
+      font-size: 13px; font-weight: 600;
+      color: #555; text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 16px 0 12px;
+    }
+
+    .item-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .item-row:last-child { border-bottom: none; }
+
+    .item-info { display: flex; align-items: center; gap: 12px; }
+    .item-dot {
+      width: 8px; height: 8px;
+      background: #1e8449;
+      border-radius: 50%; flex-shrink: 0;
+    }
+    .item-name { font-size: 14px; font-weight: 500; color: #333; }
+    .item-flavour { font-size: 12px; color: #888; margin-top: 1px; }
+
+    .item-right { text-align: right; }
+    .item-qty { font-size: 12px; color: #888; }
+    .item-price { font-size: 14px; font-weight: 600; color: #222; }
+
+    /* ── ORDER FOOTER ── */
+    .order-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 2px dashed #e8f5e9;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .delivery-info { font-size: 12px; color: #888; }
+    .total-row {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .total-label { font-size: 13px; color: #555; }
+    .total-amount { font-size: 18px; font-weight: 700; color: #1e8449; }
+
+    /* ── NOT LOGGED IN ── */
+    .login-prompt {
+      text-align: center; padding: 60px 20px;
+      background: white; border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .login-prompt .empty-icon { background: #fff3cd; }
+    .btn-login {
+      display: inline-block;
+      padding: 12px 28px;
+      background: #1e8449; color: white;
+      border-radius: 25px; text-decoration: none;
+      font-size: 14px; font-weight: 600;
+      transition: background 0.2s;
+    }
+    .btn-login:hover { background: #145a32; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .stats-row { grid-template-columns: repeat(3, 1fr); }
+      .stat-number { font-size: 18px; }
+      .hero-title { font-size: 20px; }
+      .order-meta { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Desktop Navbar -->
+<nav class="topnav">
+  <ul id="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/product/">Product</a></li>
+    <li><a href="/store/">Store</a></li>
+    <li><a href="/cart/">Cart</a></li>
+    <li><a href="/purchase/">Orders</a></li>
+    <a href="/orders/" class="active">Order History</a>
+   
+    <li><a href="/help/">Help</a></li>
+  </ul>
+  <div style="float: right;color: white;border-radius: 50px;border-color: white;border-width: 3px;box-sizing: border-box;"><li><a href="/profile/"><i class="fa-solid fa-user" style="color: #fff;"></i></a></li></div>
+</nav>
+
+<!-- Side Nav Overlay -->
+<div class="side-nav-overlay" id="navOverlay"></div>
+<nav class="side-nav" id="sideNav">
+  <div class="side-nav-header">
+    <img src="/image/logo.png" alt="EAT IT" style="height:32px;"><span>EAT iT</span>
+    <button class="side-nav-close" id="navClose"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="side-nav-links">
+    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="/product/"><i class="fa-solid fa-utensils"></i> Product</a>
+    <a href="/store/"><i class="fa-solid fa-store"></i> Store</a>
+    <a href="/cart/"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+    <a href="/purchase/"><i class="fa-solid fa-box"></i> Orders</a>
+    <a href="/orders/"><i class="fa-solid fa-clock-rotate-left"></i> Order History</a>
+        <a href="/profile/"><i class="fa-solid fa-user"></i> Profile</a>
+    <a href="/help/"><i class="fa-solid fa-circle-question"></i> Help</a>
+  </div>
+</nav>
+
+<!-- Mobile Header -->
+<header class="site-header">
+  <div class="mobile-header-bar">
+    <button class="hamburger" id="navOpen"><i class="fa-solid fa-bars"></i></button>
+    <div class="mobile-icons">
+      </div>
+      <a href="/orders/" aria-label="Order History"><i class="fa-solid fa-clock-rotate-left"></i></a>
+      <a href="/cart/" aria-label="Cart"><i class="fa-solid fa-bag-shopping"></i></a>
+      <a href="/help/" aria-label="Help"><i class="fa-solid fa-headset"></i></a>
+    </div>
+  </div>
+</header>
+
+<!-- Hero Banner -->
+<div class="hero-banner">
+  <img src="/image/logo.png" alt="EAT iT" style="height:6em;">
+  <div class="hero-title">My Orders</div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <div class="page-title">Order History</div>
+      <div class="page-subtitle">Track all your eco-friendly purchases</div>
+    </div>
+    <div class="user-badge" id="userBadge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span id="userName">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row" id="statsRow" style="display:none;">
+    <div class="stat-card">
+      <div class="stat-number" id="statTotal">0</div>
+      <div class="stat-label">Total Orders</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="statSpent">₹0</div>
+      <div class="stat-label">Total Spent</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="statPending">0</div>
+      <div class="stat-label">Pending</div>
+    </div>
+  </div>
+
+  <!-- Filter -->
+  <div class="filter-bar" id="filterBar" style="display:none;">
+    <button class="filter-btn active" onclick="filterOrders('all', this)">All</button>
+    <button class="filter-btn" onclick="filterOrders('pending', this)">Pending</button>
+    <button class="filter-btn" onclick="filterOrders('confirmed', this)">Confirmed</button>
+    <button class="filter-btn" onclick="filterOrders('delivered', this)">Delivered</button>
+  </div>
+
+  <!-- Orders Container -->
+  <div id="ordersContainer">
+    <!-- Loading -->
+    <div class="loading-wrap" id="loadingWrap">
+      <div class="spinner"></div>
+      <div class="loading-text">Loading your orders...</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const API = 'http://127.0.0.1:8000/api';
+  let allOrders = [];
+
+  // Get logged in user from storage
+  const userStr = localStorage.getItem('eatit_user') || sessionStorage.getItem('eatit_user');
+  const user = userStr ? JSON.parse(userStr) : null;
+
+  if (user) {
+    document.getElementById('userName').textContent = user.name;
+  }
+
+  // Format date
+  function formatDate(dateStr) {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-IN', {
+      day: 'numeric', month: 'short', year: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    });
+  }
+
+  // Format currency
+  function formatCurrency(amount) {
+    return '₹' + parseFloat(amount).toLocaleString('en-IN');
+  }
+
+  // Render orders
+  function renderOrders(orders) {
+    const container = document.getElementById('ordersContainer');
+
+    if (orders.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1e8449" stroke-width="2">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+          </div>
+          <div class="empty-title">No orders found</div>
+          <div class="empty-sub">You haven't placed any orders yet. Start shopping!</div>
+          <a href="/store/" class="btn-shop">+ Shop Now</a>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = orders.map(order => `
+      <div class="order-card" id="order-${order.order_id}">
+        <div class="order-header" onclick="toggleOrder(${order.order_id})">
+          <div class="order-id-wrap">
+            <div class="order-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1e8449" stroke-width="2">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+            </div>
+            <div>
+              <div class="order-id">Order #${order.order_id}</div>
+              <div class="order-date">${formatDate(order.created_at)}</div>
+            </div>
+          </div>
+          <div class="order-meta">
+            <span class="status-badge status-${order.status}">${order.status}</span>
+            <span class="payment-badge">${order.payment_method}</span>
+            <span class="order-total">${formatCurrency(order.total_amount)}</span>
+            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </div>
+        </div>
+        <div class="order-body">
+          <div class="items-title">Items Ordered (${order.items.length})</div>
+          ${order.items.map(item => `
+            <div class="item-row">
+              <div class="item-info">
+                <div class="item-dot"></div>
+                <div>
+                  <div class="item-name">${item.flavour.charAt(0).toUpperCase() + item.flavour.slice(1)} ${item.product}</div>
+                  <div class="item-flavour">Qty: ${item.quantity} × ${formatCurrency(item.price)}</div>
+                </div>
+              </div>
+              <div class="item-right">
+                <div class="item-qty">Subtotal</div>
+                <div class="item-price">${formatCurrency(item.subtotal)}</div>
+              </div>
+            </div>
+          `).join('')}
+          <div class="order-footer">
+            <div class="delivery-info">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Estimated delivery: 3-4 days
+            </div>
+            <div class="total-row">
+              <span class="total-label">Order Total:</span>
+              <span class="total-amount">${formatCurrency(order.total_amount)}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Toggle order expand
+  function toggleOrder(id) {
+    const card = document.getElementById(`order-${id}`);
+    card.classList.toggle('open');
+  }
+
+  // Filter orders
+  function filterOrders(status, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filtered = status === 'all' ? allOrders : allOrders.filter(o => o.status === status);
+    renderOrders(filtered);
+  }
+
+  // Update stats
+  function updateStats(orders) {
+    const total = orders.length;
+    const spent = orders.reduce((sum, o) => sum + parseFloat(o.total_amount), 0);
+    const pending = orders.filter(o => o.status === 'pending').length;
+    document.getElementById('statTotal').textContent = total;
+    document.getElementById('statSpent').textContent = '₹' + spent.toLocaleString('en-IN');
+    document.getElementById('statPending').textContent = pending;
+    document.getElementById('statsRow').style.display = 'grid';
+    document.getElementById('filterBar').style.display = 'flex';
+  }
+
+  // Load orders
+  async function loadOrders() {
+    try {
+      const res = await fetch(`${API}/my-orders/`, {
+        credentials: 'include'
+      });
+
+      if (res.status === 401) {
+        // Not logged in
+        document.getElementById('ordersContainer').innerHTML = `
+          <div class="login-prompt">
+            <div class="empty-icon">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#f39c12" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <div class="empty-title">Please log in</div>
+            <div class="empty-sub">You need to be logged in to view your order history.</div>
+            <a href="/login/" class="btn-login">Sign In</a>
+          </div>`;
+        document.getElementById('userName').textContent = 'Guest';
+        return;
+      }
+
+      const data = await res.json();
+      allOrders = data.orders;
+      updateStats(allOrders);
+      renderOrders(allOrders);
+
+    } catch (e) {
+      document.getElementById('ordersContainer').innerHTML = `
+        <div class="empty-state">
+          <div class="empty-title">Connection Error</div>
+          <div class="empty-sub">Could not connect to server. Make sure Django is running.</div>
+        </div>`;
+    }
+  }
+
+  loadOrders();
+
+  // ── Hamburger Menu ──
+  const navOpen = document.getElementById('navOpen');
+  const navClose = document.getElementById('navClose');
+  const navOverlay = document.getElementById('navOverlay');
+
+  navOpen?.addEventListener('click', () => document.body.classList.add('nav-open'));
+  navClose?.addEventListener('click', () => document.body.classList.remove('nav-open'));
+  navOverlay?.addEventListener('click', () => document.body.classList.remove('nav-open'));
+
+  // ── Search toggle ──
+  document.getElementById('search-trigger')?.addEventListener('click', () => {
+    document.getElementById('searchWrapper').classList.toggle('active');
+  });
+</script>
+</body>
+</html>

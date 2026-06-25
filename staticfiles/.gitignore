@@ -1,0 +1,10 @@
+.env
+_pycache_/
+*._pyc
+db.sqlite3
+staticfiles/
+login.html
+cart.html
+footer.html
+progress.html
+feedback.html

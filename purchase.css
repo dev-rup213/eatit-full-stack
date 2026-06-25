@@ -1,0 +1,136 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #232323, #5c5c5c);
+    margin: 0;
+    min-height: 100vh;
+}
+
+.login-box {
+    background: white;
+    padding: 16px;
+    border-radius: 10px;
+    width: 95%;
+    background: rgba(0,0,0,0.3);
+    max-width: 800px;
+    margin: 50px auto; /* Centered automatically */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+#total{
+    font-size: 18px;
+}
+
+h1 {
+    background-color: rgb(3, 0, 100);
+    color: #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    font-weight: 400;
+    font-size: clamp(18px, 4vw, 24px);
+    text-shadow: 2px 4px 8px black;
+}
+
+/* Radio Button Styling */
+.upi-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+.radio-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 18px;
+    gap: 5px;
+    margin: 0;
+    padding: 8px;
+}
+.payment-section{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0px;
+    margin-bottom: 40px;
+    margin-top: 20px;
+    box-shadow: 2px 4px 4px rgba(0,0,0,0.3);
+
+}
+div input[type="radio"] {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+/* Form Inputs */
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Critical for mobile fix */
+}
+
+.card-expiry {
+    display: flex;
+    gap: 10px;
+}
+i{
+    float: inline-end;
+}
+ p:hover{
+    background-color: #00c6ff;
+    color: #ccc;
+    padding: 10px;
+}
+.cardpayment {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 40px;
+    margin-top: 20px;
+    box-shadow: 2px 4px 4px rgba(0,0,0,0.3);
+    background-color: #042949;
+    color: white;
+    line-height: 1.6;
+}
+.pay{
+    background-color: #00c6ff;
+    color: #f9f9f9;
+}
+
+.pay-btn {
+    width: 100%;
+    padding: 12px;
+    background: #035094;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.pay-btn:hover {
+    background: #00c6ff;
+}
+
+/* MOBILE FIXES */
+@media (max-width: 768px) {
+    .login-box {
+        padding: 15px;
+        margin: 20px auto;
+    }
+    .upi-options {
+        flex-direction: column;
+    }
+    .card-expiry {
+        flex-direction: column;
+    }
+}

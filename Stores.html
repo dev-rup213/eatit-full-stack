@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en"><head><base href="/"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Eat It store is our primary web store shows all kind of our products and each flavors available. ">
+    <title>Store</title>
+    <!-- stores.html -->
+    <link rel="stylesheet" href="css/store.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/all.min.css">
+        <script>
+        async function checkAuth() {
+            try {
+               const res = await fetch('http://127.0.0.1:8000/api/auth/profile/',{
+                    credentials: 'include'
+                });
+            
+               if (res.status === 401) {
+                window.location.href = '/login/';
+               }
+            } catch(e) {
+                window.location.href = '/login/';
+
+            }
+            
+        }
+        checkAuth();
+    </script>
+  <script src="js.scipt/script2.js"defer></script>
+  <script src="js.scipt/search2.js"defer></script>
+  <script src="js.scipt/filter1.js"defer></script>
+      <style>
+        .topnav {
+    background:  #1e8449;
+    padding: 0 5%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-soft);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    
+}
+          header{
+    color: #fafafa;
+    font-size: 48px;
+    font-weight: 400;
+    background: #1e8449;
+    font-family:Arial, Helvetica, sans-serif;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    }
+        @media (max-width: 768px) {
+    .topnav {
+        display: none;
+        padding: 0px;
+        visibility: none;
+    }
+  }
+    </style>
+</head>
+<body>
+  <div class="topnav">
+  <div id="nav-links">
+    <a  href="/">Home</a>
+    <a href="/product/">Product</a>
+    <a class ="active" href="/store/">Store</a>
+    <a href="/cart/">Cart</a>
+    <a  href="/purchase/">Orders</a>
+    <li><a href="/orders/" >Order History</a></li>
+ 
+    <a href="/help/">Help</a>
+  
+  </div>
+    
+      <div class="search-wrapper" id="searchWrapper">
+        <i class="fa-solid fa-search" id="search-trigger"></i>
+        <input type="search" id="search-input" placeholder="Search eco-products...">
+    </div>
+    <div style="float: right;color: white;border-radius: 50px;border-color: white;border-width: 3px;box-sizing: border-box;"><li><a href="/profile/"><i class="fa-solid fa-user" style="color: #fff;"></i></a></li></div>      
+  </div>
+  <!-- Side Nav Drawer -->
+  <div class="side-nav-overlay" id="navOverlay"></div>
+  <nav class="side-nav" id="sideNav">
+    <div class="side-nav-header">
+      <img src="image/logo.png" alt="EAT IT" style="height:32px;"><span>EAT iT</span>
+      <button class="side-nav-close" id="navClose">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="side-nav-links">
+      <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="/product/"><i class="fa-solid fa-utensils"></i> Product</a>
+      <a href="/store/"><i class="fa-solid fa-store"></i> Store</a>
+      <a href="/cart/"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+      <a href="/purchase/"><i class="fa-solid fa-box"></i> Orders</a>
+      <a href="/profile/"><i class="fa-solid fa-user"></i> Profile</a>
+      <a href="/help/"><i class="fa-solid fa-circle-question"></i> Help</a>
+    </div>
+  </nav>
+
+  <!-- Your existing header -->
+  <header class="site-header">
+    <div class="mobile-header-bar">
+      <button class="hamburger" id="navOpen">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <div class="mobile-icons">
+              <div class="search-wrapper mobile-only-search">
+        <i class="fa-solid fa-search"></i>
+        <input type="search" id="mobile-search-input" placeholder="Search...">
+      </div>
+        <a href="/cart/" class="mobile"><i class="fa-solid fa-bag-shopping"></i></a>
+            <select id="select1"class="mobile" ><option value="all">All
+    </option>
+  <option value="classic">Classic</option>
+  <option value="cake">Chocolate</option>
+</select>
+
+      </div>
+    </div>
+    <!-- rest of your header... -->
+  </header>
+
+  
+  </div>
+</div> 
+  
+  <header>
+    <img src="image/logo.png" class="logo">
+   <h1>EAT iT stores</h1>
+  </header>
+  <div class="main-section">
+   <div class="cart-section">
+   <div style="background-color: #fffefe;color: black;border-top: 1px solid;border-bottom: 1px solid;padding: 10px;margin: 10px;border-radius: 8px;box-shadow: 2px 4px 8px rgb(34, 34, 34);"><a style="margin-left: 20px;"class="car">🛒My Cart:
+    <a id="storecart"class="car">Items Seleted: 0</a><a id="total" class="car">Total price: 0</a> 
+    <select id="select" ><option value="all">All
+    </option>
+  <option value="classic">Classic</option>
+  <option value="cake">Chocolate</option>
+</select>
+    <button id="remove" class="less-cart button" style="background-color: rgb(250, 84, 84);color: #fffefe;border-color: red;height: 30px;width: 90px;cursor: pointer;margin-bottom: 10px;border-radius: 20px;">Remove all</button>
+    <button class="button" style="background-color: darkgreen;color: ghostwhite;border-color: darkgreen;height: 30px;width: 90px;cursor: pointer;margin-left: 200px;margin-bottom: 10px;margin-left: 20px;border-radius: 20px;"><a href="/purchase/" style="text-decoration: no;">Checkout</a></button>
+
+    </a></div>
+   </div>
+  </div>
+  <div class="product-grid ">
+    <div class="product-card  classic ">
+      <h3>Classic Spoon<span class="discountflicker"> 20% OFF</span></h3>
+      <img src="image/Spoon.jpeg" alt="Classic spoon">
+      <p>Packet: 1</p>
+      <p>No. of Spoon: 10</p>
+      <p class="oldprice">Old:₹37.5</p>
+      <p class="price">₹30</p>
+      <p>Delivery time: 3-4 days</p>
+      <p></p>
+      <div class="section" ><button id="bot1" class="add-cart">+ Add to Cart</button></div>
+    </div> 
+    <div class="product-card  cake ">
+      <h3>Chocolate Spoon<span class="discountflicker"> 20% OFF</span></h3>
+      <img src="image/bowl2.jpeg" alt="Chocolate spoon">
+      <p>Packet: 1</p>
+      <p>No. of Spoon: 10</p>
+      <p style="font-size: larger;font-weight: 400;"class="oldprice">Old:₹44</p>
+      <p class="price">₹35</p>
+      <p>Delivery time: 3-4 days</p>
+      <div class="section" >  <button id="bot2" class="add-cart">+ Add to Cart</button></div> 
+    
+    </div>
+    <div class="product-card  classic ">
+      <h3>Classic Fork<span class="discountflicker"> 10% OFF</span></h3>
+      <img src="image/Fork.jpeg" alt="Classic Fork">
+      <p>Packet: 1</p>
+      <p>No. of Fork: 10</p>
+      <p style="font-size: larger;font-weight: 400;"class="oldprice">Old:₹33</p>
+      <p class="price">₹30</p>
+      <p>Delivery time: 3-4 days</p>
+      </button><div class="section" >  <button id="bot3" class="add-cart">+ Add to Cart</button></div>
+    </div>
+    <div class="product-card  cake ">
+      <h3>Chocolate Fork<span class="discountflicker"> 10% OFF</span></h3>
+      <img src="image/fork2.jpeg" alt="Chocolate Fork">
+      <p>Packet: 1</p>
+      <p>No. of Fork: 10</p>
+      <p style="font-size: larger;font-weight: 400;"class="oldprice">Old:₹40</p>
+      <p class="price">₹35</p>
+      <p>Delivery time: 3-4 days</p>
+      <div class="section" >  <button id="bot4" class="add-cart">+ Add to Cart</button></div>     
+
+    </div>
+    
+    <div class="product-card  classic ">
+      <h3>Classic Cutlary set<span class="discountflicker"> 10% OFF</span></h3>
+      <img src="image/cutlery set.jpeg" alt="Classic Set">
+      <p>Packet: 1</p>
+      <p>Fork: 12; Spoon: 12; Bowl: 6</p>
+      <p style="font-size: larger;font-weight: 400;"class="oldprice">Old:₹111</p>
+      <p class="price">₹100</p>
+      <p>Delivery time: 3-4 days</p>
+      <div class="section" > <button id="bot5" class="add-cart" >+ Add to Cart</button></div>
+    </div>
+    <div class="product-card  cake ">
+      <h3>Choco Cutlary Set<span class="discountflicker"> 10% OFF</span></h3>
+      <img src="image/cutlery set.jpeg" alt="Chocolate Set">
+      <p>Packet: 1</p>
+      <p>Fork: 12; Spoon: 12; Bowl: 6</p>
+      <p style="font-size: larger;font-weight: 400;"class="oldprice">Old:₹133</p>
+      <p class="price">₹120</p>
+      <p>Delivery time: 4-5 days</p>
+      <div class="section" >  <button id="bot6" class="add-cart">+ Add to Cart</button></div>
+    </div>
+    <div class="product-card  classic ">
+      <h3>Classic Bowl<span class="discountflicker"> 15% OFF</span></h3>
+      <img src="image/bowl.jpeg" alt="Classic bowl">
+      <p>Packet: 1</p>
+      <p>No. of Bowl: 10</p>
+      <p style="font-size: larger;font-weight: 400;"class="oldprice">Old:₹70.5</p>
+      <p class="price">₹60</p>
+      <p>Delivery time: 3-4 days</p>
+      <div class="section" >  <button id="bot7" class="add-cart">+ Add to Cart</button></div> 
+    </div>
+    <div class="product-card  cake ">    
+      <h3>Chocolate Bowl<span class="discountflicker"> 15% OFF</span></h3>
+      <img src="image/spoon2.jpeg" alt="Chocolate bowl">
+      <p>Packet: 1</p>
+      <p >No. of Bowl: 10</p>
+      <p style="font-size: larger;font-weight: 400;"class="oldprice">Old: ₹82</p>
+      <p class="price">₹70</p>
+      <p>Delivery time: 3-4 days</p>
+     <div class="section" >  <button id="bot8" class="add-cart">+ Add to Cart</button></div> 
+
+    </div>
+
+  </div>
+  </div>
+         <div class="sticky">
+      <span id="amount">Total amount:</span><div class="some"><i class="fa-solid fa-shopping-cart" style="color: rgb(0, 0, 0)"></i><span id="storecart1">: 0</span></div>
+      <br>
+      <p><a href="/purchase/">Pay Now</a></p>
+    </div>
+   <p id="noResults" style="display: none;text-align: center;font-size: 24px;">No product found</p>
+
+  </body>
+
+    <footer class="main-footer">
+    <p>© 2025 Eat It Edible Utensils Pvt. Ltd. All rights reserved.</p>
+  </footer>
+</html>
+  

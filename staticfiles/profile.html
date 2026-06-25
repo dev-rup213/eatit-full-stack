@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile — EAT iT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/all.min.css"/>
+      <script>
+        async function checkAuth() {
+            try {
+                const res = await fetch('http://127.0.0.1:8000/api/auth/profile/',{
+                    credentials: 'include'
+                });
+            
+               if (res.status===401) {
+                window.location.href = '/login/';
+               }
+            } catch(e) {
+                window.location.href = '/login/';
+
+            }
+            
+        }
+        checkAuth();
+    </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #1b5e20;
+      --primary-light: #2e7d32;
+      --accent: #4caf50;
+      --green: #1e8449;
+      --text-main: #1a1a1a;
+      --text-muted: #5f6368;
+      --white: #ffffff;
+      --shadow-soft: 0 4px 20px rgba(0,0,0,0.08);
+      --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f5f5;
+      color: #222;
+    }
+
+    /* ── DESKTOP NAVBAR ── */
+    .topnav {
+      background: var(--green);
+      padding: 0 5%;
+      height: 70px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: var(--shadow-soft);
+      position: sticky; top: 0; z-index: 1000;
+    }
+    #nav-links {
+      display: flex; gap: 24px; padding: 1.5rem; list-style: none;
+    }
+    #nav-links a {
+      text-decoration: none; color: var(--white);
+      font-weight: 500; font-size: 0.95rem;
+      transition: var(--transition); position: relative;
+    }
+    #nav-links a.active::after {
+      content: ''; position: absolute;
+      bottom: -5px; left: 0;
+      width: 100%; height: 2px; background: white;
+    }
+    .search-wrapper {
+      position: relative; display: flex; align-items: center;
+      background: rgba(255,255,255,0.2);
+      padding: 8px 12px; border-radius: 50px;
+      transition: var(--transition); width: 40px; overflow: hidden; cursor: pointer;
+    }
+    .search-wrapper.active {
+      width: 250px; background: var(--white);
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+    .search-wrapper i { color: white; font-size: 1.1rem; min-width: 20px; }
+    .search-wrapper.active i { color: var(--text-main); }
+    #search-input {
+      border: none; background: transparent; outline: none;
+      padding: 0 10px; width: 100%;
+      font-family: 'Poppins', sans-serif; font-size: 0.9rem;
+      opacity: 0; transition: var(--transition); color: var(--text-main);
+    }
+    .search-wrapper.active #search-input { opacity: 1; }
+
+    /* ── SIDE NAV ── */
+    .side-nav-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      opacity: 0; visibility: hidden; transition: opacity 0.3s; z-index: 998;
+    }
+    .side-nav {
+      position: fixed; top: 0; left: 0; width: 280px; height: 100%;
+      background: #fff; transform: translateX(-100%);
+      transition: transform 0.3s; z-index: 999;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+    }
+    .side-nav-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1.5rem; border-bottom: 1px solid #dadce0;
+    }
+    .side-nav-close { background: none; border: none; font-size: 1.5rem; color: #5f6368; cursor: pointer; }
+    .side-nav-links { padding: 0.5rem 0; }
+    .side-nav-links a {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.5rem; color: #202124;
+      text-decoration: none; font-size: 1rem; font-weight: 500;
+    }
+    .side-nav-links a:hover { background: #f8f9fa; }
+    .side-nav-links i { width: 1.25rem; color: #188038; }
+
+    /* ── MOBILE HEADER ── */
+    .mobile-header-bar {
+      display: none; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1rem; background: var(--green); z-index: 1000;
+    }
+    .hamburger { background: none; border: none; color: #fff; font-size: 1.25rem; cursor: pointer; padding: 0.5rem; }
+    .mobile-icons { display: flex; gap: 1rem; margin-left: auto; }
+    .mobile-icons a { color: white; font-size: 1.1rem; }
+    .site-header { position: sticky; top: 0; z-index: 100; }
+    .mobile-header-bar .search-wrapper {
+      width: 30px; height: 30px; padding: 8px 10px; border-radius: 50px;
+      background: none; border: none; transition: var(--transition);
+      display: flex; align-items: center; overflow: hidden; transform: translateX(-20px);
+    }
+    .mobile-header-bar .search-wrapper.active {
+      width: 200px; background: var(--white);
+      box-shadow: 0 0 0 2px var(--primary-light); transform: translateX(-20px);
+    }
+    .mobile-header-bar .search-wrapper i { color: white; font-size: 1rem; min-width: 20px; }
+    .mobile-header-bar .search-wrapper.active i { color: #1a1a1a; }
+    #mobile-search-input {
+      opacity: 0; width: 100%; font-size: 0.9rem; padding-left: 8px;
+      transition: var(--transition); color: var(--text-main);
+      background: transparent; border: none; outline: none;
+    }
+    .mobile-header-bar .search-wrapper.active #mobile-search-input { opacity: 1; }
+    body.nav-open { overflow: hidden; }
+    body.nav-open .side-nav { transform: translateX(0); }
+    body.nav-open .side-nav-overlay { opacity: 1; visibility: visible; }
+
+    @media (max-width: 768px) {
+      .topnav { display: none; }
+      .mobile-header-bar { display: flex; }
+    }
+
+    /* ── HERO BANNER ── */
+    .hero-banner {
+      background: var(--green);
+      padding: 20px 24px 24px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .hero-title { font-size: 26px; font-weight: 700; color: white; }
+
+    /* ── MAIN ── */
+    .main { max-width: 700px; margin: 0 auto; padding: 24px 16px; }
+
+    /* ── PROFILE CARD ── */
+    .profile-card {
+      background: white; border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      overflow: hidden; margin-bottom: 20px;
+    }
+
+    .profile-top {
+      background: linear-gradient(135deg, #1e8449, #145a32);
+      padding: 32px 24px;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .avatar {
+      width: 72px; height: 72px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 700; color: white;
+      border: 3px solid rgba(255,255,255,0.4);
+      flex-shrink: 0;
+    }
+    .profile-name { font-size: 20px; font-weight: 700; color: white; }
+    .profile-email { font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px; }
+    .profile-since { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+
+    /* ── INFO SECTIONS ── */
+    .info-section { padding: 20px 24px; }
+    .info-section + .info-section { border-top: 1px solid #f0f0f0; }
+
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: 13px; font-weight: 700;
+      color: #888; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .edit-btn {
+      background: none; border: 1px solid #1e8449;
+      color: #1e8449; border-radius: 20px;
+      padding: 5px 14px; font-size: 12px; font-weight: 600;
+      cursor: pointer; font-family: 'Poppins', sans-serif;
+      transition: all 0.2s;
+    }
+    .edit-btn:hover { background: #1e8449; color: white; }
+    .save-btn {
+      background: #1e8449; border: none;
+      color: white; border-radius: 20px;
+      padding: 5px 14px; font-size: 12px; font-weight: 600;
+      cursor: pointer; font-family: 'Poppins', sans-serif;
+      transition: all 0.2s; display: none;
+    }
+    .save-btn:hover { background: #145a32; }
+    .cancel-btn {
+      background: none; border: 1px solid #ddd;
+      color: #888; border-radius: 20px;
+      padding: 5px 14px; font-size: 12px; font-weight: 600;
+      cursor: pointer; font-family: 'Poppins', sans-serif;
+      margin-right: 8px; transition: all 0.2s; display: none;
+    }
+    .cancel-btn:hover { border-color: #999; color: #555; }
+
+    /* ── FIELD ── */
+    .field-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid #f8f8f8;
+    }
+    .field-row:last-child { border-bottom: none; }
+    .field-icon {
+      width: 36px; height: 36px;
+      background: #e8f5e9; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: #1e8449; font-size: 14px;
+    }
+    .field-content { flex: 1; }
+    .field-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.3px; }
+    .field-value { font-size: 15px; font-weight: 500; color: #222; margin-top: 2px; }
+
+    /* ── EDIT INPUTS ── */
+    .edit-input {
+      width: 100%; margin-top: 6px;
+      padding: 10px 12px;
+      border: 1.5px solid #ddd; border-radius: 8px;
+      font-family: 'Poppins', sans-serif; font-size: 14px;
+      color: #222; outline: none;
+      transition: border-color 0.2s;
+      display: none;
+    }
+    .edit-input:focus { border-color: #1e8449; box-shadow: 0 0 0 3px rgba(30,132,73,0.1); }
+    .field-error-msg {
+      font-size: 11px; color: #e74c3c;
+      margin-top: 4px; display: none;
+    }
+
+    /* ── ALERT ── */
+    .alert {
+      padding: 12px 16px; border-radius: 10px;
+      font-size: 13px; margin-bottom: 16px;
+      display: none; align-items: center; gap: 8px;
+    }
+    .alert.success {
+      background: #d4edda; color: #155724;
+      border: 1px solid #c3e6cb; display: flex;
+    }
+    .alert.error {
+      background: #fdecea; color: #c0392b;
+      border: 1px solid #f5c6cb; display: flex;
+    }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px; margin-bottom: 20px;
+    }
+    .stat-card {
+      background: white; border-radius: 12px;
+      padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      text-align: center; border-top: 3px solid #1e8449;
+    }
+    .stat-number { font-size: 22px; font-weight: 700; color: #1e8449; }
+    .stat-label { font-size: 12px; color: #888; margin-top: 4px; }
+
+    /* ── LOGOUT ── */
+    .logout-section {
+      background: white; border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 20px 24px;
+    }
+    .btn-logout {
+      width: 100%; padding: 13px;
+      background: none; border: 2px solid #e74c3c;
+      color: #e74c3c; border-radius: 10px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-logout:hover { background: #e74c3c; color: white; }
+
+    /* ── LOADING ── */
+    .loading-wrap { text-align: center; padding: 60px 20px; }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid #e0e0e0; border-top-color: #1e8449;
+      border-radius: 50%; animation: spin 0.8s linear infinite;
+      margin: 0 auto 12px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 500px) {
+      .stats-row { grid-template-columns: repeat(3, 1fr); }
+      .stat-number { font-size: 16px; }
+      .profile-top { padding: 24px 16px; }
+      .info-section { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Desktop Navbar -->
+<nav class="topnav">
+  <ul id="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/product/">Product</a></li>
+    <li><a href="/store/">Store</a></li>
+    <li><a href="/cart/">Cart</a></li>
+    <li><a href="/purchase/">Orders</a></li>
+    <li><a href="/orders/">Order History</a></li>
+    
+    <li><a href="/help/">Help</a></li>
+    
+  </ul>
+  <div style="float: right;color: white;border-radius: 50px;border-color: white;border-width: 3px;box-sizing: border-box;"><li><a href="/profile/"><i class="fa-solid fa-user" style="color: #fff;"></i></a></li></div>
+
+</nav>
+
+<!-- Side Nav -->
+<div class="side-nav-overlay" id="navOverlay"></div>
+<nav class="side-nav" id="sideNav">
+  <div class="side-nav-header">
+    <img src="/image/logo.png" alt="EAT iT" style="height:32px;">
+    <span>EAT iT</span>
+    <button class="side-nav-close" id="navClose"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="side-nav-links">
+    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="/product/"><i class="fa-solid fa-utensils"></i> Product</a>
+    <a href="/store/"><i class="fa-solid fa-store"></i> Store</a>
+    <a href="/cart/"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+    <a href="/purchase/"><i class="fa-solid fa-box"></i> Orders</a>
+    <a href="/orders/"><i class="fa-solid fa-clock-rotate-left"></i> Order History</a>
+    <a href="/profile/"><i class="fa-solid fa-user"></i> Profile</a>
+    <a href="/help/"><i class="fa-solid fa-circle-question"></i> Help</a>
+  </div>
+</nav>
+
+<!-- Mobile Header -->
+<header class="site-header">
+  <div class="mobile-header-bar">
+    <button class="hamburger" id="navOpen"><i class="fa-solid fa-bars"></i></button>
+    <div class="mobile-icons">
+      <a href="/orders/" aria-label="Orders"><i class="fa-solid fa-clock-rotate-left"></i></a>
+      <a href="/cart/" aria-label="Cart"><i class="fa-solid fa-bag-shopping"></i></a>
+      <a href="/help/" aria-label="Help"><i class="fa-solid fa-headset"></i></a>
+    </div>
+  </div>
+</header>
+
+<!-- Hero Banner -->
+<div class="hero-banner">
+  <img src="/image/logo.png" alt="EAT iT" style="height:5em;">
+  <div class="hero-title">My Profile</div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Alert -->
+  <div class="alert" id="alertBox"></div>
+
+  <!-- Loading -->
+  <div class="loading-wrap" id="loadingWrap">
+    <div class="spinner"></div>
+    <div style="font-size:14px;color:#888;">Loading your profile...</div>
+  </div>
+
+  <!-- Profile Content (hidden until loaded) -->
+  <div id="profileContent" style="display:none;">
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-number" id="statOrders">0</div>
+        <div class="stat-label">Total Orders</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="statSpent">₹0</div>
+        <div class="stat-label">Total Spent</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="statPending">0</div>
+        <div class="stat-label">Pending</div>
+      </div>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="profile-card">
+
+      <!-- Top -->
+      <div class="profile-top">
+        <div class="avatar" id="avatarInitial">?</div>
+        <div>
+          <div class="profile-name" id="profileName">—</div>
+          <div class="profile-email" id="profileEmail">—</div>
+          <div class="profile-since">EAT iT Member</div>
+        </div>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="info-section">
+        <div class="section-header">
+          <div class="section-title">Contact Information</div>
+          <div style="display:flex;gap:8px;">
+            <button class="cancel-btn" id="phoneCancelBtn" onclick="cancelEdit('phone')">Cancel</button>
+            <button class="save-btn" id="phoneSaveBtn" onclick="savePhone()">Save</button>
+            <button class="edit-btn" id="phoneEditBtn" onclick="editPhone()">Edit</button>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-icon"><i class="fa-solid fa-phone"></i></div>
+          <div class="field-content">
+            <div class="field-label">Mobile Number</div>
+            <div class="field-value" id="profilePhone">—</div>
+            <input class="edit-input" type="tel" id="phoneInput" placeholder="Enter mobile number"/>
+            <div class="field-error-msg" id="phoneError">Enter a valid 10-digit number.</div>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-icon"><i class="fa-solid fa-envelope"></i></div>
+          <div class="field-content">
+            <div class="field-label">Email Address</div>
+            <div class="field-value" id="profileEmailField">—</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Address -->
+      <div class="info-section">
+        <div class="section-header">
+          <div class="section-title">Delivery Address</div>
+          <div style="display:flex;gap:8px;">
+            <button class="cancel-btn" id="addressCancelBtn" onclick="cancelEdit('address')">Cancel</button>
+            <button class="save-btn" id="addressSaveBtn" onclick="saveAddress()">Save</button>
+            <button class="edit-btn" id="addressEditBtn" onclick="editAddress()">Edit</button>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field-icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="field-content">
+            <div class="field-label">Delivery Address</div>
+            <div class="field-value" id="profileAddress">—</div>
+            <input class="edit-input" type="text" id="addressInput" placeholder="Enter your delivery address"/>
+            <div class="field-error-msg" id="addressError">Address cannot be empty.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /profile-card -->
+
+    <!-- Logout -->
+    <div class="logout-section">
+      <button class="btn-logout" onclick="handleLogout()">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Sign Out
+      </button>
+    </div>
+
+  </div><!-- /profileContent -->
+
+  <!-- Not Logged In -->
+  <div id="notLoggedIn" style="display:none; text-align:center; padding:60px 20px; background:white; border-radius:16px; box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+    <i class="fa-solid fa-user-lock" style="font-size:48px; color:#ccc; margin-bottom:16px;"></i>
+    <div style="font-size:18px; font-weight:600; color:#333; margin-bottom:8px;">Please log in</div>
+    <div style="font-size:14px; color:#888; margin-bottom:24px;">You need to be logged in to view your profile.</div>
+    <a href="/login/" style="display:inline-block; padding:12px 28px; background:#1e8449; color:white; border-radius:25px; text-decoration:none; font-size:14px; font-weight:600;">Sign In</a>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+  const API = 'http://127.0.0.1:8000/api';
+  let profileData = {};
+
+  // ── Load Profile ──
+  async function loadProfile() {
+    try {
+      const res = await fetch(`${API}/auth/profile/`, { credentials: 'include' });
+
+      if (res.status === 401) {
+        document.getElementById('loadingWrap').style.display = 'none';
+        document.getElementById('notLoggedIn').style.display = 'block';
+        return;
+      }
+
+      profileData = await res.json();
+      renderProfile(profileData);
+      loadOrderStats();
+
+    } catch (e) {
+      document.getElementById('loadingWrap').innerHTML = `
+        <div style="font-size:14px;color:#e74c3c;">Connection error. Make sure Django is running.</div>`;
+    }
+  }
+
+  // ── Render Profile ──
+  function renderProfile(data) {
+    document.getElementById('loadingWrap').style.display = 'none';
+    document.getElementById('profileContent').style.display = 'block';
+
+    const initial = data.name ? data.name.charAt(0).toUpperCase() : '?';
+    document.getElementById('avatarInitial').textContent = initial;
+    document.getElementById('profileName').textContent = data.name || '—';
+    document.getElementById('profileEmail').textContent = data.email || '—';
+    document.getElementById('profileEmailField').textContent = data.email || '—';
+    document.getElementById('profilePhone').textContent = data.phone || '—';
+    document.getElementById('profileAddress').textContent = data.address || '—';
+
+    // Pre-fill inputs
+    document.getElementById('phoneInput').value = data.phone || '';
+    document.getElementById('addressInput').value = data.address || '';
+  }
+
+  // ── Load Order Stats ──
+  async function loadOrderStats() {
+    try {
+      const res = await fetch(`${API}/my-orders/`, { credentials: 'include' });
+      const data = await res.json();
+      const orders = data.orders || [];
+      const spent = orders.reduce((s, o) => s + parseFloat(o.total_amount), 0);
+      const pending = orders.filter(o => o.status === 'pending').length;
+      document.getElementById('statOrders').textContent = orders.length;
+      document.getElementById('statSpent').textContent = '₹' + spent.toLocaleString('en-IN');
+      document.getElementById('statPending').textContent = pending;
+    } catch (e) {}
+  }
+
+  // ── Edit Phone ──
+  function editPhone() {
+    document.getElementById('profilePhone').style.display = 'none';
+    document.getElementById('phoneInput').style.display = 'block';
+    document.getElementById('phoneInput').focus();
+    document.getElementById('phoneEditBtn').style.display = 'none';
+    document.getElementById('phoneSaveBtn').style.display = 'inline-block';
+    document.getElementById('phoneCancelBtn').style.display = 'inline-block';
+  }
+
+  function cancelEdit(type) {
+    if (type === 'phone') {
+      document.getElementById('profilePhone').style.display = 'block';
+      document.getElementById('phoneInput').style.display = 'none';
+      document.getElementById('phoneEditBtn').style.display = 'inline-block';
+      document.getElementById('phoneSaveBtn').style.display = 'none';
+      document.getElementById('phoneCancelBtn').style.display = 'none';
+      document.getElementById('phoneError').style.display = 'none';
+      document.getElementById('phoneInput').value = profileData.phone || '';
+    } else {
+      document.getElementById('profileAddress').style.display = 'block';
+      document.getElementById('addressInput').style.display = 'none';
+      document.getElementById('addressEditBtn').style.display = 'inline-block';
+      document.getElementById('addressSaveBtn').style.display = 'none';
+      document.getElementById('addressCancelBtn').style.display = 'none';
+      document.getElementById('addressError').style.display = 'none';
+      document.getElementById('addressInput').value = profileData.address || '';
+    }
+  }
+
+  async function savePhone() {
+    const phone = document.getElementById('phoneInput').value.trim();
+    const clean = phone.replace(/[\s\-\+]/g, '');
+    if (!/^[6-9]\d{9}$/.test(clean)) {
+      document.getElementById('phoneError').style.display = 'block';
+      return;
+    }
+    document.getElementById('phoneError').style.display = 'none';
+
+    try {
+      const res = await fetch(`${API}/auth/update-phone/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ phone })
+      });
+      const data = await res.json();
+      if (data.success) {
+        profileData.phone = phone;
+        document.getElementById('profilePhone').textContent = phone;
+        cancelEdit('phone');
+        showAlert('Mobile number updated successfully!', 'success');
+      } else {
+        showAlert(data.error || 'Failed to update.', 'error');
+      }
+    } catch (e) {
+      showAlert('Connection error.', 'error');
+    }
+  }
+
+  // ── Edit Address ──
+  function editAddress() {
+    document.getElementById('profileAddress').style.display = 'none';
+    document.getElementById('addressInput').style.display = 'block';
+    document.getElementById('addressInput').focus();
+    document.getElementById('addressEditBtn').style.display = 'none';
+    document.getElementById('addressSaveBtn').style.display = 'inline-block';
+    document.getElementById('addressCancelBtn').style.display = 'inline-block';
+  }
+
+  async function saveAddress() {
+    const address = document.getElementById('addressInput').value.trim();
+    if (!address) {
+      document.getElementById('addressError').style.display = 'block';
+      return;
+    }
+    document.getElementById('addressError').style.display = 'none';
+
+    try {
+      const res = await fetch(`${API}/auth/address/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ address })
+      });
+      const data = await res.json();
+      if (data.success) {
+        profileData.address = address;
+        document.getElementById('profileAddress').textContent = address;
+        cancelEdit('address');
+        showAlert('Delivery address updated successfully!', 'success');
+      } else {
+        showAlert(data.error || 'Failed to update.', 'error');
+      }
+    } catch (e) {
+      showAlert('Connection error.', 'error');
+    }
+  }
+
+  // ── Logout ──
+  async function handleLogout() {
+    try {
+      await fetch(`${API}/auth/logout/`, { method: 'POST', credentials: 'include' });
+    } catch (e) {}
+    localStorage.removeItem('eatit_user');
+    sessionStorage.removeItem('eatit_user');
+    window.location.href = '/login/';
+  }
+
+  // ── Alert ──
+  function showAlert(msg, type) {
+    const el = document.getElementById('alertBox');
+    el.className = `alert ${type}`;
+    el.innerHTML = `<i class="fa-solid fa-${type === 'success' ? 'check-circle' : 'circle-exclamation'}"></i> ${msg}`;
+    setTimeout(() => { el.style.display = 'none'; }, 3500);
+  }
+
+  // ── Hamburger ──
+  document.getElementById('navOpen')?.addEventListener('click', () => document.body.classList.add('nav-open'));
+  document.getElementById('navClose')?.addEventListener('click', () => document.body.classList.remove('nav-open'));
+  document.getElementById('navOverlay')?.addEventListener('click', () => document.body.classList.remove('nav-open'));
+  document.getElementById('search-trigger')?.addEventListener('click', () => {
+    document.getElementById('searchWrapper').classList.toggle('active');
+  });
+
+  loadProfile();
+</script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<footer><button class="btn"><a href="/",padding =1rem>🏡 Back to Home</a></button><button class="btn"> <a href="/product/">⬅️Go to Previous Page</a></button></footer>
+<footer><button class="btn"><a style="color: #fafafa;text-decoration: none;" href="/">🏡 Back to Home</a></button>
+  <button class="btn"><a style="color: #fafafa;text-decoration: none;" href="/store/">Go to Next Page➡️</a></button></footer>
+      <h2>Edible Spoon🥄</h2>
+      <p><a style="color: rgb(171, 102, 6);text-decoration: underline;" href="/spoon/">More Info</a></p>
+      <img src="image/Spoon.jpeg" alt="Flavour 1">
+            <h2>Edible Fork🍴</h2>
+      <p><a style="color: rgb(171, 102, 6);text-decoration: underline;" href="/fork/">More Info</a></p>
+      <img src="image/Fork.jpeg" alt="Flavour 1">
+            <h2>Cutlary Set🍽️</h2>
+      <p><a style="color: rgb(171, 102, 6);text-decoration: underline;" href="/set/">More Info</a></p>
+      <img  src="image/cutlery set.jpeg" alt="Flavour 1" >
+            <h2>Edible Bowl🥣</h2>
+      <p><a style="color: rgb(171, 102, 6);text-decoration: underline;" href="bowl.html">More Info</a></p>
+      <img src="image/bowl.jpeg" alt="Flavour 1">
+      <style>
+            body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+    .desktop-search {
+      display: inline;
+    }
+    .topnav a {
+    display: block;
+    color: rgb(254, 251, 251);
+    text-align: center;
+    padding: 16px 18px; 
+    text-decoration: none; 
+    font-size: 17px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.topnav a:hover {
+    background-color: #044624; 
+    color: rgb(255, 255, 255);
+}
+
+.topnav a.active {
+    background-color: #1b5e20;
+    color: #ffffff;
+    border-radius: 4px; 
+}
+
+.topnav input[type=search] {
+    padding: 10px;
+    margin: 8px 0;
+    font-size: 16px; 
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    width: 200px;
+}
+
+#nav-links {
+    display: flex;
+    gap: 10px;
+    margin-right: auto; 
+}
+
+    .search-bar{
+        width: 400px;
+        padding: 0.5rem 1rem 0.5rem 2rem;
+        background: rgba(255,255,255,0.3);
+        color: #fff;
+        border-radius: 24px;
+        transition: all 0.2s ease;
+        margin-bottom: 10px;
+
+    }
+    .search-bar:focus{
+        width: 500px;
+        background: white;
+        color: #202124;
+        outline: none;
+        box-shadow: 0 2px 8px rgba(255,255,255,0.2);
+
+
+    }
+    .search-bar::placeholder{
+        color: rgba(255,255,255,0.8);
+        transform: color 0.3s ease;
+    }
+    .search-bar:focus::placeholder{
+        color: #5f6368;
+    }
+    .search-container{
+      display: flex;
+      justify-content: center;
+     background:transparent;
+     vertical-align: top;
+     align-self: center;
+     margin-left: auto;
+    
+
+
+    }
+    body {
+      background:   #f5f5f5; ;
+      min-height: 100vh;
+      margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      color: #333;
+    }
+.topnav {
+    overflow: hidden; 
+    background:linear-gradient(90deg,#1b5e20 0%,#388e3c 100%);
+    vertical-align: top;
+    display: flex; 
+    align-items: center;
+    padding: 10px 16px;
+}
+
+      </style>
+
+<script>
+      let count = 0;
+let classicspoonCount=0;//localStorage.getItem('classicspooncount') || 0;
+let chocolatespoonCount=0;//localStorage.getItem('chocolatespoonCount') ||0;
+let classicforkCount=0;//localStorage.getItem('classicforkCount') ||0;
+let chocolateforkCount=0;//localStorage.getItem('chocolateforkCoun') ||0;
+let classicbowlCount=0;//localStorage.getItem('classicbowlCount') ||0;
+let chocolatebowlCount=0;//localStorage.getItem('chocolatebowlCount') ||0;
+let prices = {
+    classicspoon: 30,
+    chocolatespoon: 35,
+    classicfork: 30,
+    chocolatefork: 35,
+    classicbowl: 60,
+    chocolatebowl: 70
+};
+
+function addEvent(elementId, handler) {
+    let element = document.getElementById(elementId);
+    element.addEventListener("click",handler);
+    element.addEventListener("touchstart",handler);
+}
+
+document.getElementById("btn1").addEventListener("click",function(){
+    classicspoonCount++;
+    count++;
+    document.getElementById("display1").innerText =  + classicspoonCount;
+    document.getElementById("cart").innerText ="Item selected: " + count ;
+});
+document.getElementById("btn2").addEventListener("click",function(){
+    if (count > 0) {
+    classicspoonCount--;
+    count--;
+    document.getElementById("display1").innerText =  + classicspoonCount;
+    document.getElementById("cart").innerText ="Item selected: " + count;
+    }
+});
+document.getElementById("btn3").addEventListener("click",function(){
+    chocolatespoonCount++;
+    count++;
+    document.getElementById("display2").innerText =  + chocolatespoonCount;
+    document.getElementById("cart").innerText ="Item selected: " + count;
+});
+document.getElementById("btn4").addEventListener("click",function(){
+    if (count > 0) {
+    chocolatespoonCount--;
+    count --;
+    document.getElementById("display2").innerText =   chocolatespoonCount;
+    document.getElementById("cart").innerText ="Item selected: " + count;
+    }
+});
+document.getElementById("btn5").addEventListener("click",function(){
+    chocolateforkCount++;
+    count++;
+    document.getElementById("display3").innerText =  + chocolateforkCount;
+    document.getElementById("cart").innerText ="Item selected: " + count;
+});
+document.getElementById("btn6").addEventListener("click",function(){
+    if (count > 0) {
+    chocolateforkCount--;
+    count--;
+    document.getElementById("display3").innerText =   chocolateforkCount;
+    document.getElementById("cart").innerText ="Item selected: " + count;
+    }
+});
+document.getElementById("btn7").addEventListener("click",function(){
+    classicforkCount++;
+    count++;
+    document.getElementById("display4").innerText =  + classicforkCount;
+    document.getElementById("cart").innerText ="Item selected: " + count;
+});
+document.getElementById("btn8").addEventListener("click",function(){
+    if (count > 0) {
+    chocolateforkCount--;
+    count--;
+    document.getElementById("display4").innerText =   chocolateforkCount;
+    document.getElementById("cart").innerText ="Item selected: " + count;
+    }
+});
+document.getElementById("btn9").addEventListener("click",function(){
+    classicbowlCount++;
+    count++;
+    document.getElementById("display5").innerText =  + classicbowlCount;
+    document.getElementById("cart").innerText ="Item selected: " + count;
+});
+document.getElementById("btn10").addEventListener("click",function(){
+    if (count > 0) {
+    classicbowlCount--;
+    count--;
+    document.getElementById("display5").innerText =   classicbowlCount;
+    document.getElementById("cart").innerText ="Item selected: " + count;
+    }
+});
+document.getElementById("btn11").addEventListener("click",function(){
+    chocolatebowlCount++;
+    count++;
+    document.getElementById("display6").innerText =  + chocolatebowlCount;
+    document.getElementById("cart").innerText ="Item selected: " + count;
+});
+document.getElementById("btn12").addEventListener("click",function(){
+    if (count > 0)  {
+    chocolatebowlCount--;
+    count--;
+    document.getElementById("display6").innerText =   chocolatebowlCount;
+    document.getElementById("cart").innerText ="Item selected: " + count;
+    }
+});
+addEvent("buyall",function(){
+
+    count=0;
+    chocolatebowlCount=0;
+    chocolateforkCount=0;
+    chocolatespoonCount=0;
+    classicbowlCount=0;
+    classicforkCount=0;
+    classicspoonCount=0;
+    totalPrice=0;
+
+    document.getElementById("display1").innerText =  + classicspoonCount;
+    document.getElementById("display2").innerText =  + chocolatespoonCount;
+    document.getElementById("display3").innerText =  + chocolateforkCount;
+    document.getElementById("display4").innerText =  + classicforkCount;
+    document.getElementById("display5").innerText =  + classicbowlCount;
+    document.getElementById("display6").innerText =  + chocolatebowlCount;
+    document.getElementById("see1").innerText ="Total Price:" +classicspoonCount;
+    document.getElementById("see2").innerText ="Total Price:" +chocolatespoonCount;
+    document.getElementById("see3").innerText ="Total Price:" +chocolateforkCount;
+    document.getElementById("see4").innerText ="Total Price:" +classicforkCount;
+    document.getElementById("see5").innerText ="Total Price:" +classicbowlCount;
+    document.getElementById("see6").innerText ="Total Price:" +chocolatebowlCount;
+    document.getElementById("cart").innerText ="🛒 Your Cart is empty!!";
+    document.getElementById("total").innerText ="";
+});
+const btn =document.getElementById("menu-btn");
+const links =document.getElementById("nav-links");
+btn.onclick = () => {
+    links.classList.toggle("active");
+    }
+</script>
+  <div class="nav-search">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" placeholder="Search eco-products..."/>
+  </div>

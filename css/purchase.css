@@ -1,0 +1,356 @@
+body {background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+    min-height: 100vh;
+            margin: 0px;
+            color: black;
+
+        }
+        a{
+
+            text-decoration: none;
+            color: white;
+        }
+        .login-box {
+            background: rgb(5, 1, 33);
+            color: #fefdfd;
+    background: #ffffff;
+    color: #333;
+            padding: 30px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 2px 4px 8px black;
+            margin: 50px auto;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 700px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    margin: 40px auto;
+        }
+        i{
+            font-size: 32px;
+            margin-right: 100px;
+        }
+        
+.gpay-icon {
+            background: linear-gradient(90deg,#4285f4,#34a853,#fbbc05,#ea4335 );
+        }
+
+        h2 {
+            text-align: left;
+            margin-bottom: 20px;
+            font-weight: 400;
+            padding: 20px;
+            border-radius: 8px;
+            color: black;
+            font-size: 24px;
+
+        }
+       
+h1 {
+    background:linear-gradient(90deg,#1b5e20 0%,#388e3c 100%);
+    color: #fff;
+           margin: 0px;
+            padding: 20px;
+    padding: 15px;
+            font-weight: 400;
+    font-size: 22px;
+    text-align: center;
+        }
+        h3 {
+            box-shadow: 2px 4px 4px black;
+    color: #fbf8f8;
+            margin-bottom: 20px;
+            font-weight: 200;
+            padding: 20px;
+            border: 1px solid black;
+            background:white;
+            color: rgb(0, 0, 0);
+
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin: 15px 0;
+    transition: 0.3s;
+        }
+        h1{
+            text-shadow: 2px 4px 8px black;
+        }
+        option{
+            border-radius: 12px;
+        }
+        h4{
+            font-weight: 100;
+            font-size: 18px;
+            margin: 10px;
+        }
+        p {
+            font-weight: 200;
+            font: 18px sans-serif;
+            margin:none;
+        }
+        h5 {
+            font-weight: 300;
+            font: 24px sans-serif;
+            padding: 10px;
+            border-bottom: 1px solid rgb(252, 251, 251);
+
+        }
+        p:hover{
+            background-color: #4facfe;
+            color: #fefdfd;
+            border-radius: 20px;
+            padding: 10px;
+        }
+
+        
+h3:hover {
+            cursor: pointer;
+            transform: translateY(-4px);
+    transform: translateY(-3px);
+    border-color: #2196f3;
+        }
+
+        .input {
+            width: 100%;
+            max-width: 380px;
+            padding: 10px;
+            margin-left: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .input-upi {
+            width: 100%;
+            max-width: 500px;
+            padding: 10px;
+            margin-left: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            display: none;
+        }
+        input[value=others]:checked ~ .input-upi{display: inline;}
+        input[value="debit"]:checked ~ .details{display: flex;}
+        input[value="Credit"]:checked ~ .details{display: flex;}
+    
+        label{
+
+            margin-right: 80px;
+            gap: 10px;
+        }
+        .full-width {
+            width: 100%;
+            max-width: 380px;
+            padding: 10px;
+            margin-left: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+
+        }
+
+        button {
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+            height: 50px;
+            background: #12870c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 24px;
+            text-align: center;
+        }
+        #cardnumber{
+            width: 100%;
+            max-width: 790px;
+            padding: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+
+        }
+        button:hover {
+            background: #00c6ff;
+        }
+        .check {
+            float: right;
+            border-radius: 30px;
+        }
+        span {
+            float: right;
+        }
+option {
+    border-radius: 12px;
+}
+h4 {
+    font-weight: 100;
+            font-size: 18px;
+    margin: 10px;
+        }
+        select {
+            font-size: 18px;
+            border: none;
+            background-color: none;
+            cursor: pointer;
+        }
+        .cardpayment{
+            display: flex;
+            gap: 10px;
+            max-width: 1000px;
+            border: 1px solid black;margin: 0px;padding: 10px;
+            box-shadow: 2px 4px 4px black;
+            background-color:white;
+            color: rgb(0, 0, 0);
+            margin: 50px auto;
+            border-radius: 8px;
+        }
+        .cardpayment:hover{
+            cursor: pointer;
+            transform: translateY(-4px);
+        }
+
+         @media (max-width: 768px) {
+         #cardnumber{
+            width: 100%;
+            max-width: 300px;
+         }
+p {
+    font-weight: 200;
+    font: 18px sans-serif;
+    margin: 0;
+}
+h5 {
+    font-weight: 300;
+    font: 24px sans-serif;
+            padding: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 20px;
+
+    border-bottom: 1px solid #ddd;
+}
+p:hover {
+    background-color: #4facfe;
+    color: #fefdfd;
+    border-radius: 20px;
+    padding: 10px;
+        }
+        .login-box {
+            background: white;
+            padding: 16px;
+            border-radius: 10px;}
+.input {
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            margin-top: 50px;
+            margin-left: 5px;
+            margin-left: 5px;
+            margin-bottom: 50px;
+    max-width: 300px;
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+        }
+
+        h1{
+            font-size: 24px;}
+.input-upi {
+    width: 100%;
+    max-width: 380px;
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    display: none;
+        }
+
+        
+input[value=others]:checked ~ .input-upi { display: inline; }
+input[value="debit"]:checked ~ .details { display: flex; }
+input[value="Credit"]:checked ~ .details { display: flex; }
+input[type=radio] {
+    margin-right: 5px;
+        }
+.full-width {
+    width: 100%;
+    max-width: 380px;
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+button, .pay-btn {
+    width: 90%;
+    padding: 12px;
+    height: 50px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: 600;
+}
+#cardnumber {
+    width: 100%;
+    max-width: 660px;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+button:hover, .pay-btn:hover {
+    background: #00c6ff;
+}
+.check {
+    float: right;
+    border-radius: 30px;
+}
+span {
+    float: right;
+    font-size: 18px;
+}
+
+.cardpayment {
+    display: block;
+    gap: 10px;
+    border: 1px solid #ddd;
+    padding: 15px;
+
+    margin: 15px 0;
+    transition: 0.3s;
+}
+i{
+    margin-right: 20px;
+}
+.cardpayment:hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+    border-color: #2196f3;
+}
+@media (max-width: 768px) {
+
+    .login-box {
+        background: white;
+        padding: 16px;
+        border-radius: 15px;
+        width: 95%;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    h1 {
+        font-size: 20px;
+    }
+}
+         }
