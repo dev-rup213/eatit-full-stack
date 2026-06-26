@@ -126,8 +126,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
-STATICFILES_DIRS = [BASE_DIR]
+
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR/'staticfiles'
+STATICFILES_DIRS = [BASE_DIR]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIAL = True
 CORS_ALLOW_HEADERS = list(default_headers) + ['content-type']
@@ -140,7 +144,7 @@ CORS_ALLOW_METHOD = [
     'PUT',
 ]
 AUTH_USER_MODEL = 'accounts.User'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = BASE_DIR/'staticfiles'
+
+
 
 
