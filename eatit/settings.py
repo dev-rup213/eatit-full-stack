@@ -33,7 +33,10 @@ CSRF_TRUSTED_ORIGINS = ["https://eatit-full-stack.onrender.com",]
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = ["https://eatit-full-stack.onrender.com",]
-
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = True
 
 
 # Application definition
@@ -139,8 +142,7 @@ STATICFILES_DIRS = [BASE_DIR]
 WHITENOISE_ROOT = BASE_DIR
 STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
 
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIAL = True
+
 CORS_ALLOW_HEADERS = list(default_headers) + ['content-type']
 CORS_ALLOW_METHOD = [
     'DELETE',
