@@ -130,7 +130,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR/'staticfiles'
 STATICFILES_DIRS = [BASE_DIR]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+WHITENOISE_ROOT = BASE_DIR
+STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIAL = True

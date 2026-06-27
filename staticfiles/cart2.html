@@ -11,7 +11,7 @@
         <script>
         async function checkAuth() {
             try {
-                const res = await fetch('http://127.0.0.1:8000/api/auth/profile/',{
+                const res = await fetch('https://eatit-full-stack.onrender.com/api/auth/profile/',{
                     credentials: 'include'
                 });
             
@@ -136,7 +136,7 @@
 </header>
 
 
-<div class="product-card">
+<div class="product-card" style="opacity: 1;visibility: hidden;">
     <h2 id="cart" style="color: rgb(4, 4, 4);"><i class="fa-solid fa-shopping-cart"></i>Your cart is empty</h2>
     <h1 id="total"></h1>
     <br>

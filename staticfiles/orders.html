@@ -10,7 +10,7 @@
       <script>
         async function checkAuth() {
             try {
-                const res = await fetch('http://127.0.0.1:8000/api/auth/profile/',{
+                const res = await fetch('https://eatit-full-stack.onrender.com/api/auth/profile/',{
                     credentials: 'include'
                 });
             
@@ -568,7 +568,7 @@
 </div>
 
 <script>
-  const API = 'http://127.0.0.1:8000/api';
+  const API = 'https://eatit-full-stack.onrender.com/api';
   let allOrders = [];
 
   // Get logged in user from storage
