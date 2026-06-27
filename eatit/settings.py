@@ -29,6 +29,12 @@ DEBUG = config('DEBUG',default=False,cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = ["https://eatit-full-stack.onrender.com",]
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = ["https://eatit-full-stack.onrender.com",]
+
+
 
 # Application definition
 
