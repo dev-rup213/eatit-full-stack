@@ -34,7 +34,7 @@ urlpatterns = [
     path('spoon/',TemplateView.as_view(template_name='Edible Spoon.html')),
     path('fork/',TemplateView.as_view(template_name='Edible Fork.html')),
     path('bowl/',TemplateView.as_view(template_name='bowl.html')),
-    path('set/',TemplateView.as_view(template_name='Set.html')),
+    path('set/',TemplateView.as_view(template_name='set.html')),
     path('orders/',TemplateView.as_view(template_name='orders.html')),
     path('profile/',TemplateView.as_view(template_name='profile.html')),
 
