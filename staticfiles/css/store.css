@@ -53,6 +53,7 @@
       box-shadow: 0 4px 12px black;
       transition: all 0.2s ease;
       border: 1px solid  #c8e6c9;
+      width: max-content;
     }
     .product-card a{
       text-decoration: none;
